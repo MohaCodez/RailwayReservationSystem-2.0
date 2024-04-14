@@ -20,7 +20,7 @@ public class Passenger {
             case "military":
                 this.person = new Military(name, age, phoneNumber, emailId);
                 break;
-            case "seniorcitizen":
+            case "senior":
                 this.person = new SeniorCitizen(name, age, phoneNumber, emailId);
                 break;
             case "disabled":
