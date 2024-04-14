@@ -1,5 +1,6 @@
 public class SleeperCoach implements Coach {
-    
+	static final private double COACH_PRICE = 500.0;
+
     private int bookedSeats;
     final int CAPACITY = 100;
     private Seat[] seats;

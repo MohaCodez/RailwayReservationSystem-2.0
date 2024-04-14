@@ -1,4 +1,5 @@
 public class AC1Coach implements Coach {
+	static final private double COACH_PRICE = 3000.0;
     private int bookedSeats;
     static final int CAPACITY = 40;
     private Seat[] seats;

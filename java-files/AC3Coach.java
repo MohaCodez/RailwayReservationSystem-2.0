@@ -1,5 +1,7 @@
 
 public class AC3Coach implements Coach {
+	static final private double COACH_PRICE = 1000.0;
+
     private int bookedSeats;
     final int CAPACITY = 90;
     private Seat[] seats;
