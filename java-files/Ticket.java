@@ -35,4 +35,8 @@ public class Ticket {
     public int getCoachNumber() { // Added getter method for coachNumber
         return coachNumber;
     }
+    
+    public String getTrainId() {
+    	return this.trainID;
+    }
 }

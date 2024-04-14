@@ -1,7 +1,7 @@
 
 public class Passenger {
     private Person person;
-
+    private Ticket bookedTicket;
     public Passenger(Person person) {
         this.person = person;
     }
@@ -38,9 +38,9 @@ public class Passenger {
         return train.bookTicket();
     }
     
-    public boolean cancelTicket(Train train) {
-        if (bookedTicket != null) {
-            boolean isCancelled = train.cancelTicketById(bookedTicket.getTicketId());
+    public boolean cancelTicket(Train train, String ticketId) {
+        if (train.getTrainId().equals(bookedTicket.getTrainId()) && bookedTicket.getTicketId().equals(ticketId)) {
+            boolean isCancelled = train.cancelTicketById(ticketId);
             if (isCancelled) {
                 bookedTicket = null; // Reset bookedTicket after cancellation
             }
