@@ -69,8 +69,17 @@ public class Main {
                     break;
             }
         } while (choice != 4);
-
+        
         scanner.close();
+        
+//        for (Map.Entry<String, Train> entry : trainMap.entrySet()) {
+//            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+//        }
+//        
+//        for (Map.Entry<String, Ticket> entry : ticketManager.getBookedTickets().entrySet()) {
+//            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+//        }
+        
     }
 
     private static void bookTicket(TicketManager ticketManager, Scanner scanner) {
@@ -302,5 +311,5 @@ public class Main {
             System.out.println("Ticket with ID " + ticketId + " does not exist.");
         }
     }
-
+    
 }
