@@ -163,20 +163,6 @@ public class Main {
         System.out.print(
                 "\nList of Available Coaches: \n[1] for AC1 \n[2] for AC2 \n[3] for AC3c\n[4] for Sleeper \nEnter Coach Type: ");
         int coachType = scanner.nextInt();
-        HashMap<String, String> stringMap = new HashMap<>();
-        stringMap.put("HEADER_AC1", "    A   B     C   D");
-        // stringMap.put("EMPTY_ROW_AC1", "  [ ] [ ]   [ ] [ ]");
-        // stringMap.put("BOOKED_ROW_AC1", "  [x] [x]   [x] [x]");
-        stringMap.put("BOOKED_SEAT", "[x]");
-        stringMap.put("EMPTY_SEAT", "[ ]");
-
-        System.out.println(stringMap.get("HEADER_AC1"));
-        for (Integer i = 1; i < 11; i++) {
-            if (i>=10) {
-                
-            }
-            System.out.println(i.toString() + stringMap.get("EMPTY_ROW_AC1"));
-        }
 
         System.out.print("Enter seat number: ");
         int seatNumber = scanner.nextInt();
