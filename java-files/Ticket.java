@@ -45,4 +45,20 @@ public class Ticket {
     public Person getPerson() {
     	return this.person;
     }
+    
+    public String getDetails() {
+        // Construct and return the ticket details as a string
+        StringBuilder sb = new StringBuilder();
+        sb.append("Ticket ID: ").append(ticketId).append("\n");
+        sb.append("Train ID: ").append(trainID).append("\n");
+        sb.append("Coach Type: ").append(coachType).append("\n");
+        sb.append("Seat Number: ").append(seatNumber).append("\n");
+        sb.append("Coach Number: ").append(coachNumber).append("\n");
+        sb.append("Passenger Name: ").append(person.getName()).append("\n");
+        sb.append("Passenger Age: ").append(person.getAge()).append("\n");
+        sb.append("Passenger Phone Number: ").append(person.getPhoneNumber()).append("\n");
+        sb.append("Passenger Email: ").append(person.getEmailId()).append("\n");
+        return sb.toString();
+    }
+    
 }

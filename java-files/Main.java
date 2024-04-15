@@ -132,19 +132,19 @@ public class Main {
         }
         Route route = routeMap.get(routeChoice);
         
-        List<Train> trains = (List<Train>)trainMap.values();
+        List<Train> trains = new ArrayList<>(trainMap.values());
         
         System.out.println("Following are the Train IDs for desired Route");
         
         for(Train train: trains) {
             if(train.getRoute() == route) {
-            	System.out.println("Train ID:" + train.getTrainId() + "Route Description \n" + train.getRoute().getDescription());
+            	System.out.println("Train ID:" + train.getTrainId() + "\nRoute Description \n" + train.getRoute().getDescription());
             }
         	
 
         }
         
-        System.out.print("Enter train ID: ");
+        System.out.println("Enter train ID: ");
         String trainId = scanner.nextLine();
         while((!trainMap.containsKey(trainId))) {
         
@@ -168,7 +168,7 @@ public class Main {
         Ticket ticket = ticketManager.bookTicket(person, train, coachType, seatNumber, coachNumber);
         if (ticket != null) {
             System.out.println("Ticket booked successfully:");
-            System.out.println(ticket);
+            System.out.println(ticket.getDetails());
         } else {
             System.out.println("Failed to book the ticket. Please try again.");
         }
