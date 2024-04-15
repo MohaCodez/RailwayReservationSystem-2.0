@@ -20,8 +20,6 @@ public class Route {
         this.price = price;
     }
 
-    // Getters and setters for all fields
-
     public int getId() {
         return id;
     }
@@ -86,7 +84,5 @@ public class Route {
                "Arrival Time: " + arrivalTime + "\n" +
                "Date: " + date + "\n" +
                "Price: " + price;
-    }
-
-    
+    }   
 }

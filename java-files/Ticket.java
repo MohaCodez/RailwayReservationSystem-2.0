@@ -7,7 +7,7 @@ public class Ticket {
     private int seatNumber;
     private int coachNumber; // Added field
 
-    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber) { // Updated constructor
+    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber) {
         this.trainID = trainID;
         this.ticketId = generateTicketId();
         this.coachType = coachType;
@@ -24,6 +24,10 @@ public class Ticket {
         return ticketId;
     }
 
+    public String getTrainID() {
+        return trainID;
+    }
+
     public int getCoachType() {
         return coachType;
     }
@@ -31,12 +35,8 @@ public class Ticket {
     public int getSeatNumber() {
         return seatNumber;
     }
-    
-    public int getCoachNumber() { // Added getter method for coachNumber
+
+    public int getCoachNumber() {
         return coachNumber;
-    }
-    
-    public String getTrainId() {
-    	return this.trainID;
     }
 }
