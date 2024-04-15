@@ -22,7 +22,6 @@ You may click the following link to view our [Progress Sheet](https://docs.googl
 
 Before you begin, ensure you have the following tools installed:
 - `Java v15.0.2`
-- `node v20.11.1`
 - `Your preferred IDE` (e.g., Eclipse, VS Code, etc.)
 
 ### Installation
@@ -34,14 +33,6 @@ Before you begin, ensure you have the following tools installed:
 ```cd java-files```<br>
 ```javac Main.java```<br>
 ```java Main```
-
-3. For the backend, navigate to the `backend` folder and run the node files:<br>
-```cd backend```<br>
-```node main.js```
-
-4. For the frontend, navigate to the `frontend` folder and run index.html:<br>
-```cd frontend```<br>
-```index.html```
 
 ## Usage
 
