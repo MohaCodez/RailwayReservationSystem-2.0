@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Main {
-	private static Map<String, Train> trainMap;
+	private static Map<String, Train> trainMap = new HashMap<>();
+	private static  Map<String, Route> routeMap = new HashMap<>();
     public static void main(String[] args) {
         
     	
@@ -16,12 +17,20 @@ public class Main {
         int choice;
         
         // Create routes
+        //Map<String, Route> routeMap = new HashMap<>();
+        
         Route goaToMumbaiRoute = new Route(1, "Goa", "Mumbai", LocalTime.of(8, 0), LocalTime.of(14, 0), LocalDate.of(2024, 4, 15), 1500.0);
         Route mumbaiToGoaRoute = new Route(2, "Mumbai", "Goa", LocalTime.of(10, 0), LocalTime.of(16, 0), LocalDate.of(2024, 4, 16), 1500.0);
         Route goaToBangaloreRoute = new Route(3, "Goa", "Bangalore", LocalTime.of(9, 0), LocalTime.of(18, 0), LocalDate.of(2024, 4, 17), 2000.0);
+        
+        routeMap.put("1", goaToMumbaiRoute);
+        routeMap.put("2", goaToMumbaiRoute);
+        routeMap.put("3", goaToMumbaiRoute);
 
+        
+        
         // Create a HashMap to store trains
-        Map<String, Train> trainMap = new HashMap<>();
+        //Map<String, Train> trainMap = new HashMap<>();
 
         // Add trains to the HashMap
         trainMap.put("RJ123", new Train("RJ123", goaToMumbaiRoute));
@@ -113,15 +122,37 @@ public class Main {
         }
 
         // Ask for train details
-        System.out.print("Enter route (e.g., 'Goa to Mumbai'): ");
-        String route = scanner.nextLine();
+        
+        System.out.print("Enter route  \n1: Goa to Mumbai \n2: Mumbai to Goa \n3: Goa to Bangalore\n Enter Choice: ");
+        String routeChoice = scanner.nextLine();
+        while(!routeMap.containsKey(routeChoice)) {
+        	System.out.print("Enter route  \n1: Goa to Mumbai \n2: Mumbai to Goa \n3: Goa to Bangalore\n Enter Choice: ");
+            String routeChoicex = scanner.nextLine();
+            routeChoice = routeChoicex;
+        }
+        Route route = routeMap.get(routeChoice);
+        
+        List<Train> trains = (List<Train>)trainMap.values();
+        
+        System.out.println("Following are the Train IDs for desired Route");
+        
+        for(Train train: trains) {
+            if(train.getRoute() == route) {
+            	System.out.println("Train ID:" + train.getTrainId() + "Route Description \n" + train.getRoute().getDescription());
+            }
+        	
+
+        }
+        
         System.out.print("Enter train ID: ");
         String trainId = scanner.nextLine();
+        while((!trainMap.containsKey(trainId))) {
         
-        if (!trainMap.containsKey(trainId)) {
-            System.out.println("Invalid train ID. Please enter a valid train ID.");
-            return; // Exit the method if the train ID is invalid
-        }
+            System.out.println("Invalid train ID. Please enter a valid train ID.:");
+            String trainId2 = scanner.nextLine();
+            trainId = trainId2;
+
+    	}
         
         Train train = trainMap.get(trainId);
         
