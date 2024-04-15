@@ -33,4 +33,8 @@ public class TicketManager {
             System.out.println(ticket);
         }
     }
+    
+    public Map<String, Ticket> getBookedTickets(){
+    	return this.bookedTickets;
+    }
 }

@@ -6,13 +6,15 @@ public class Ticket {
     private int coachType;
     private int seatNumber;
     private int coachNumber; // Added field
+    private Person person;
 
-    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber) {
+    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber, Person person) {
         this.trainID = trainID;
         this.ticketId = generateTicketId();
         this.coachType = coachType;
         this.seatNumber = seatNumber;
         this.coachNumber = coachNumber; // Set coachNumber
+        this.person = person;
     }
 
     private String generateTicketId() {
@@ -38,5 +40,9 @@ public class Ticket {
 
     public int getCoachNumber() {
         return coachNumber;
+    }
+    
+    public Person getPerson() {
+    	return this.person;
     }
 }

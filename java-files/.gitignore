@@ -16,3 +16,5 @@
 /Ticket.class
 /Train.class
 /TicketBooking.class
+/BaseCoach.class
+/TicketManager.class

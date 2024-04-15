@@ -42,7 +42,7 @@ public class Train {
     }
 
     public void displayAvailableSeats() {
-        System.out.println("Available Seats for Train " + trainId + " - Route: " + route.getDescription());
+        System.out.println("Available Seats for Train " + trainId + " - Route: " + this.route.getDescription());
         for (int i = 0; i < ac1Coach.length; i++) {
             ac1Coach[i].displayAvailableSeats();
         }
@@ -58,7 +58,7 @@ public class Train {
     }
 
     public Ticket bookTicket(Person person, int coachType, int seatNumber, int coachNumber) {
-        Ticket ticket = new Ticket(trainId, coachType, seatNumber, coachNumber);
+        Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, person);
         bookedTickets.put(ticket.getTicketId(), ticket);
         return ticket;
     }
@@ -95,7 +95,7 @@ public class Train {
     }
 
     public void displayBookedTickets() {
-        System.out.println("Booked Tickets for Train " + trainId + ":");
+        System.out.println("Booked Tickets for Train " + this.trainId + ":");
         for (Ticket ticket : bookedTickets.values()) {
             System.out.println("Ticket ID: " + ticket.getTicketId() + ", Coach Type: " + ticket.getCoachType() + ", Seat Number: " + ticket.getSeatNumber());
         }
@@ -103,7 +103,7 @@ public class Train {
 
     // Getters and Setters
     public String getTrainId() {
-        return trainId;
+        return this.trainId;
     }
 
     public void setTrainId(String trainId) {
@@ -111,7 +111,7 @@ public class Train {
     }
 
     public Route getRoute() {
-        return route;
+        return this.route;
     }
 
     public void setRoute(Route route) {
