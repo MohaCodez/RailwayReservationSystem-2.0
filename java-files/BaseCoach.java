@@ -55,4 +55,12 @@ abstract class BaseCoach implements Coach {
         }
         System.out.println();
     }
+    
+    public boolean isSeatBooked(int seatNumber) {
+        if (seatNumber < 0 || seatNumber >= CAPACITY) {
+            throw new IllegalArgumentException("Invalid seat number");
+        }
+        return this.seats[seatNumber].isBooked();
+    }
 }
+

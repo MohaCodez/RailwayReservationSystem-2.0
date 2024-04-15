@@ -10,4 +10,5 @@ class AC2Coach extends BaseCoach {
     public void displayCoachDetails() {
         System.out.println("AC2 Coach - Number of Seats: " + (CAPACITY - this.bookedSeats));
     }
+   
 }
