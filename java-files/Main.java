@@ -221,7 +221,7 @@ public class Main {
             Ticket ticket = ticketManager.getBookedTickets().get(ticketId);
 
             // Display ticket information
-            System.out.println("Ticket Information:");
+            System.out.println("\nTicket Information:");
             System.out.println("Ticket ID: " + ticket.getTicketId());
             System.out.println("Passenger Name: " + ticket.getPerson().getName());
             System.out.println("Passenger Age: " + ticket.getPerson().getAge());
