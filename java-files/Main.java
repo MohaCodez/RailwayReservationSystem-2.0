@@ -57,7 +57,7 @@ public class Main {
             System.out.println("[2] Cancel a ticket");
             System.out.println("[3] Check ticket status");
             System.out.println("[4] Exit");
-            System.out.print("Enter your choice: ");
+            System.out.print("  Enter your choice: ");
             choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
@@ -103,24 +103,24 @@ public class Main {
         System.out.println("[3] Military");
         System.out.println("[4] Disabled");
         System.out.println("[5] General");
-        System.out.print("Enter category number: ");
+        System.out.print("  Enter category number: ");
         int categoryChoice = scanner.nextInt();
         scanner.nextLine(); // Consume newline
 
         // Ask for person details
-        System.out.print("Enter passenger's name: ");
+        System.out.print("  Enter passenger's name: ");
         String name = scanner.nextLine();
-        System.out.print("Enter passenger's age: ");
+        System.out.print("  Enter passenger's age: ");
         int age = 0;
         try {
             age = scanner.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println("Enter a valid age!");
+            System.out.println("    Enter a valid age!");
         }
         scanner.nextLine(); // Consume newline
-        System.out.print("Enter passenger's phone number: ");
+        System.out.print("  Enter passenger's phone number: ");
         String phoneNumber = scanner.nextLine();
-        System.out.print("Enter passenger's email: ");
+        System.out.print("  Enter passenger's email: ");
         String email = scanner.nextLine();
 
         // Create the Person object based on the provided category and details
@@ -147,11 +147,11 @@ public class Main {
         // Ask for train details
 
         System.out.print(
-                "\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\n Enter Choice: ");
+                "\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\n    Enter Choice: ");
         String routeChoice = scanner.nextLine();
         while (!routeMap.containsKey(routeChoice)) {
             System.out
-                    .print("Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\n Enter Choice: ");
+                    .print("Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\n   Enter Choice: ");
             String routeChoicex = scanner.nextLine();
             routeChoice = routeChoicex;
         }
@@ -174,8 +174,8 @@ public class Main {
 
         }
 
-        System.out.println("Enter train ID: ");
-        String trainId = scanner.nextLine();
+        System.out.println("\n  Enter train ID: ");
+        String trainId = scanner.next();
         while ((!trainMap.containsKey(trainId))) {
 
             System.out.println("Invalid train ID. Please enter a valid train ID.:");
@@ -188,10 +188,10 @@ public class Main {
 
         // Ask for coach details
         System.out.print(
-                "\nList of Available Coaches: \n[1] for AC1 \n[2] for AC2 \n[3] for AC3\n[4] for Sleeper \nEnter Coach Type: ");
+                "\nList of Available Coaches: \n[1] for AC1 \n[2] for AC2 \n[3] for AC3\n[4] for Sleeper \n Enter Coach Type: ");
         int coachType = scanner.nextInt();
 
-        System.out.print("Enter coach number: ");
+        System.out.print("  Enter coach number: ");
         int coachNumber = -1;
 
         switch (coachType) {
@@ -229,7 +229,7 @@ public class Main {
 
         // IMPLEMENT MULTIPLE SEAT BOOKING ALSO
 
-        System.out.print("Enter seat number: ");
+        System.out.print("  Enter seat number: ");
         int seatNumber = scanner.nextInt();
         while (coach.isSeatBooked(seatNumber)) {
             System.out.print("Seat " + seatNumber + " is already booked. Enter a different seat number: ");
