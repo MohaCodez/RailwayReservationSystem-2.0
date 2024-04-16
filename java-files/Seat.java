@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-class Seat {
+class Seat implements Serializable {
     private boolean bookingStatus;
 
     public boolean isBooked() {
@@ -14,4 +15,3 @@ class Seat {
         this.bookingStatus = false;
     }
 }
-

@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Route {
+public class Route implements Serializable {
     private int id;
     private String start;
     private String destination;
@@ -10,7 +11,8 @@ public class Route {
     private LocalDate date;
     private double price;
 
-    public Route(int id, String start, String destination, LocalTime departureTime, LocalTime arrivalTime, LocalDate date, double price) {
+    public Route(int id, String start, String destination, LocalTime departureTime, LocalTime arrivalTime,
+            LocalDate date, double price) {
         this.id = id;
         this.start = start;
         this.destination = destination;
@@ -75,14 +77,14 @@ public class Route {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
     public String getDescription() {
         return "Route ID: " + id + "\n" +
-               "Start: " + start + "\n" +
-               "Destination: " + destination + "\n" +
-               "Departure Time: " + departureTime + "\n" +
-               "Arrival Time: " + arrivalTime + "\n" +
-               "Date: " + date + "\n" +
-               "Price: " + price;
-    }   
+                "Start: " + start + "\n" +
+                "Destination: " + destination + "\n" +
+                "Departure Time: " + departureTime + "\n" +
+                "Arrival Time: " + arrivalTime + "\n" +
+                "Date: " + date + "\n" +
+                "Price: " + price;
+    }
 }
