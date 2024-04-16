@@ -4,10 +4,13 @@ import java.util.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Main {
+
     private static Map<String, Train> trainMap = new HashMap<>();
     private static Map<String, Route> routeMap = new HashMap<>();
 
@@ -31,15 +34,37 @@ public class Main {
         routeMap.put("2", mumbaiToGoaRoute);
         routeMap.put("3", goaToBangaloreRoute);
 
-        // Create a HashMap to store trains
-        // Map<String, Train> trainMap = new HashMap<>();
+        String dataFilePath = "data.ser";
 
-        // Add trains to the HashMap
-        trainMap.put("RJ123", new Train("RJ123", goaToMumbaiRoute));
-        trainMap.put("RJ126", new Train("RJ126", goaToMumbaiRoute));
-        trainMap.put("RJ129", new Train("RJ129", goaToMumbaiRoute));
-        trainMap.put("RJ131", new Train("RJ131", mumbaiToGoaRoute));
-        trainMap.put("RJ135", new Train("RJ135", goaToBangaloreRoute));
+        File file = new File(dataFilePath);
+        if (file.exists()) {
+            if (file.length() == 0) {
+                // the file exists and it is is empty
+                // Create a HashMap to store trains
+                // Map<String, Train> trainMap = new HashMap<>();
+
+                // Add trains to the HashMap
+                trainMap.put("RJ123", new Train("RJ123", goaToMumbaiRoute));
+                trainMap.put("RJ126", new Train("RJ126", goaToMumbaiRoute));
+                trainMap.put("RJ129", new Train("RJ129", goaToMumbaiRoute));
+                trainMap.put("RJ131", new Train("RJ131", mumbaiToGoaRoute));
+                trainMap.put("RJ135", new Train("RJ135", goaToBangaloreRoute));
+
+                MapIO.writeMapToFile(trainMap, dataFilePath);
+                System.out.println("writing successful!");
+
+            } else {
+                trainMap = MapIO.readMapFromFile(dataFilePath);
+            }
+        } else {
+            // Create a new file
+            try {
+                file.createNewFile();
+                System.out.println("File created successfully.");
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }
 
         do {
             System.out.println("\nWelcome to Railway Reservation System Main Menu! Press:");
@@ -172,8 +197,12 @@ public class Main {
         // Book the ticket using the TicketManager
         Ticket ticket = ticketManager.bookTicket(person, train, coachType, seatNumber, coachNumber);
         if (ticket != null) {
-            System.out.println("Ticket booked successfully:");
+            System.out.println("\nTicket booked successfully with the following details:");
             System.out.println(ticket.getDetails());
+            MapIO.writeMapToFile(trainMap, "data.ser");
+            // HashMap<String, Train> newTrainMap = new HashMap<String, Train>();
+            // newTrainMap.put("train-1", train);
+            // TrainHashMapFileHandler.writeHashMapToFile(newTrainMap, "testing.txt");
         } else {
             System.out.println("Failed to book the ticket. Please try again.");
         }

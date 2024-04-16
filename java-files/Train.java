@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Train {
+public class Train implements Serializable {
     private String trainId;
     private Route route;
     private AC1Coach[] ac1Coach;
@@ -97,7 +98,8 @@ public class Train {
     public void displayBookedTickets() {
         System.out.println("Booked Tickets for Train " + this.trainId + ":");
         for (Ticket ticket : bookedTickets.values()) {
-            System.out.println("Ticket ID: " + ticket.getTicketId() + ", Coach Type: " + ticket.getCoachType() + ", Seat Number: " + ticket.getSeatNumber());
+            System.out.println("Ticket ID: " + ticket.getTicketId() + ", Coach Type: " + ticket.getCoachType()
+                    + ", Seat Number: " + ticket.getSeatNumber());
         }
     }
 
