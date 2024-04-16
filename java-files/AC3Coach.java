@@ -11,4 +11,5 @@ class AC3Coach extends BaseCoach implements Serializable {
     public void displayCoachDetails() {
         System.out.println("AC3 Coach - Number of Seats: " + (CAPACITY - this.bookedSeats));
     }
+    
 }

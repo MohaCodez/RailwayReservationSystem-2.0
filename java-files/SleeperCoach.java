@@ -10,4 +10,5 @@ class SleeperCoach extends BaseCoach {
     public void displayCoachDetails() {
         System.out.println("Sleeper Coach - Number of Seats: " + (CAPACITY - this.bookedSeats));
     }
+
 }

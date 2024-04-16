@@ -4,13 +4,10 @@ import java.util.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Main {
-
     private static Map<String, Train> trainMap = new HashMap<>();
     private static Map<String, Route> routeMap = new HashMap<>();
 
@@ -34,37 +31,15 @@ public class Main {
         routeMap.put("2", mumbaiToGoaRoute);
         routeMap.put("3", goaToBangaloreRoute);
 
-        String dataFilePath = "data.ser";
+        // Create a HashMap to store trains
+        // Map<String, Train> trainMap = new HashMap<>();
 
-        File file = new File(dataFilePath);
-        if (file.exists()) {
-            if (file.length() == 0) {
-                // the file exists and it is is empty
-                // Create a HashMap to store trains
-                // Map<String, Train> trainMap = new HashMap<>();
-
-                // Add trains to the HashMap
-                trainMap.put("RJ123", new Train("RJ123", goaToMumbaiRoute));
-                trainMap.put("RJ126", new Train("RJ126", goaToMumbaiRoute));
-                trainMap.put("RJ129", new Train("RJ129", goaToMumbaiRoute));
-                trainMap.put("RJ131", new Train("RJ131", mumbaiToGoaRoute));
-                trainMap.put("RJ135", new Train("RJ135", goaToBangaloreRoute));
-
-                MapIO.writeMapToFile(trainMap, dataFilePath);
-                System.out.println("writing successful!");
-
-            } else {
-                trainMap = MapIO.readMapFromFile(dataFilePath);
-            }
-        } else {
-            // Create a new file
-            try {
-                file.createNewFile();
-                System.out.println("File created successfully.");
-            } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
-            }
-        }
+        // Add trains to the HashMap
+        trainMap.put("RJ123", new Train("RJ123", goaToMumbaiRoute));
+        trainMap.put("RJ126", new Train("RJ126", goaToMumbaiRoute));
+        trainMap.put("RJ129", new Train("RJ129", goaToMumbaiRoute));
+        trainMap.put("RJ131", new Train("RJ131", mumbaiToGoaRoute));
+        trainMap.put("RJ135", new Train("RJ135", goaToBangaloreRoute));
 
         do {
             System.out.println("\nWelcome to Railway Reservation System Main Menu! Press:");
@@ -94,8 +69,17 @@ public class Main {
                     break;
             }
         } while (choice != 4);
-
+        
         scanner.close();
+        
+//        for (Map.Entry<String, Train> entry : trainMap.entrySet()) {
+//            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+//        }
+//        
+//        for (Map.Entry<String, Ticket> entry : ticketManager.getBookedTickets().entrySet()) {
+//            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+//        }
+        
     }
 
     private static void bookTicket(TicketManager ticketManager, Scanner scanner) {
@@ -186,26 +170,71 @@ public class Main {
 
         // Ask for coach details
         System.out.print(
-                "\nList of Available Coaches: \n[1] for AC1 \n[2] for AC2 \n[3] for AC3c\n[4] for Sleeper \nEnter Coach Type: ");
+                "\nList of Available Coaches: \n[1] for AC1 \n[2] for AC2 \n[3] for AC3\n[4] for Sleeper \nEnter Coach Type: ");
         int coachType = scanner.nextInt();
 
+        System.out.print("Enter coach number: ");
+        int coachNumber = -1;
+        
+        switch (coachType) {
+        case 1: // AC1
+            System.out.print("Enter coach number (0): ");
+            coachNumber = scanner.nextInt();
+            while (coachNumber != 0) {
+                System.out.print("Invalid coach number. Please enter 0: ");
+                coachNumber = scanner.nextInt();
+            }
+            break;
+        case 2: // AC2
+            System.out.print("Enter coach number (0 or 1): ");
+            coachNumber = scanner.nextInt();
+            while (coachNumber != 0 && coachNumber != 1) {
+                System.out.print("Invalid coach number. Please enter 0 or 1: ");
+                coachNumber = scanner.nextInt();
+            }
+            break;
+        case 3: // AC3
+            System.out.print("Enter coach number (0, 1, or 2): ");
+            coachNumber = scanner.nextInt();
+            while (coachNumber != 0 && coachNumber != 1 && coachNumber != 2) {
+                System.out.print("Invalid coach number. Please enter 0, 1, or 2: ");
+                coachNumber = scanner.nextInt();
+            }
+            break;
+        default:
+            System.out.println("Invalid coach type.");
+            return; // Exit the method if coach type is invalid
+    }
+        
+        BaseCoach coach = train.getCoach(coachType, coachNumber);
+        coach.displayAvailableSeats();
+        
+        
+        //IMPLEMENT MULTIPLE SEAT BOOKING ALSO
+        
         System.out.print("Enter seat number: ");
         int seatNumber = scanner.nextInt();
-        System.out.print("Enter coach number: ");
-        int coachNumber = scanner.nextInt();
-
+        while (coach.isSeatBooked(seatNumber)) {
+            System.out.print("Seat " + seatNumber + " is already booked. Enter a different seat number: ");
+            seatNumber = scanner.nextInt();
+        }
+        
         // Book the ticket using the TicketManager
         Ticket ticket = ticketManager.bookTicket(person, train, coachType, seatNumber, coachNumber);
         if (ticket != null) {
-            System.out.println("\nTicket booked successfully with the following details:");
+            System.out.println("Ticket booked successfully:");
+         // Update the state of the coach after booking a ticket
+            train.updateCoachState(coachType, coachNumber, seatNumber, true);
+            
             System.out.println(ticket.getDetails());
-            MapIO.writeMapToFile(trainMap, "data.ser");
-            // HashMap<String, Train> newTrainMap = new HashMap<String, Train>();
-            // newTrainMap.put("train-1", train);
-            // TrainHashMapFileHandler.writeHashMapToFile(newTrainMap, "testing.txt");
+            //ADDING BACK TO THE TRAINMAP
+            trainMap.put(trainId, train);
         } else {
             System.out.println("Failed to book the ticket. Please try again.");
         }
+        
+        
+        
     }
 
     private static void cancelTicket(TicketManager ticketManager, Scanner scanner) {
@@ -220,26 +249,39 @@ public class Main {
 
             // Extract information from the ticket
             String trainId = ticket.getTrainID();
+            // Extract coach and seat information from the ticket
             int coachType = ticket.getCoachType();
-            int seatNumber = ticket.getSeatNumber();
             int coachNumber = ticket.getCoachNumber();
-
+            int seatNumber = ticket.getSeatNumber();
             // Retrieve the corresponding train from the trainMap
             Train train = trainMap.get(trainId);
 
             // Cancel the seat in the train's coach
             boolean seatCancelled = train.cancelTicketById(ticketId);
+            
+            
 
             // Remove the ticket from the TicketManager's list of booked tickets
             if (seatCancelled) {
                 ticketManager.cancelTicketById(ticketId);
                 System.out.println("Ticket with ID " + ticketId + " has been cancelled successfully.");
+                // Update the state of the coach after booking a ticket
+                train.updateCoachState(coachType, coachNumber, seatNumber, false);
+                
+                //ADDING BACK TO THE TRAINMAP
+                trainMap.put(trainId, train);
             } else {
                 System.out.println("Failed to cancel the ticket. Please try again.");
             }
+            
+            
+            
         } else {
             System.out.println("Ticket with ID " + ticketId + " does not exist.");
         }
+        
+
+        
     }
 
     private static void checkTicketStatus(TicketManager ticketManager, Scanner scanner) {
@@ -269,5 +311,5 @@ public class Main {
             System.out.println("Ticket with ID " + ticketId + " does not exist.");
         }
     }
-
+    
 }
