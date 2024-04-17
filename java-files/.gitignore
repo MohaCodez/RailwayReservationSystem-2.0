@@ -28,3 +28,7 @@
 /Admin.class
 /User.class
 /UserHashMapIO.class
+/TatkalTicketBooker.class
+/TicketRequest.class
+/TicketRequestHashMapIO.class
+/TicketRequestManager.class
