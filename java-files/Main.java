@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.*;
 import java.util.List;
-// import java.util.Map;
 import java.util.Scanner;
 import java.io.File;
 import java.time.LocalDate;
@@ -49,6 +48,36 @@ public class Main {
 
         } else {
             trainMap = HashMapIO.readHashMapFromFile(filePath);
+        }
+
+        System.out.println("Hi! Welcome to the Railway Reservation System!");
+        // Scanner scanner = new Scanner(System.in); // Create a Scanner object to read
+        // input
+        int input = -1;
+        do {
+            try {
+                System.out.println("Press:\n[1] Login\n[2] Sign-up\nEnter your choice: ");
+                input = scanner.nextInt();
+                if (input != 1 && input != 2) {
+                    System.out.println("Please enter a valid value.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter an integer value!");
+                scanner.next(); // Consume the invalid input
+            }
+        } while (input != 1 && input != 2);
+
+        switch (input) {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+
+            default:
+                System.out.println("Invalid choice. Please enter a valid input!");
+                break;
         }
 
         do {
@@ -98,10 +127,10 @@ public class Main {
     private static void bookTicket(TicketManager ticketManager, Scanner scanner) {
         // Ask for person category
         System.out.println("\nChoose passenger category:");
-        System.out.println("[1] Student");
-        System.out.println("[2] Senior Citizen");
-        System.out.println("[3] Military");
-        System.out.println("[4] Disabled");
+        System.out.println("[1] Student (30% OFF)");
+        System.out.println("[2] Senior Citizen (40% OFF)");
+        System.out.println("[3] Military (50% OFF)");
+        System.out.println("[4] Disabled (55% OFF)");
         System.out.println("[5] General");
         System.out.print("Enter category number: ");
         int categoryChoice = scanner.nextInt();
