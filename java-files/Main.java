@@ -153,18 +153,25 @@ public class Main {
         registeredUsers = UserHashMapIO.readHashMapFromFile(userDataFilePath);
         System.out.println(registeredUsers);
         Set<String> keys = registeredUsers.keySet();
+        System.out.println(keys);
+        boolean flag = false;
         for (String key : keys) {
             if (key.equals(enteredPhoneNumber)) {
+                flag = true;
                 if (registeredUsers.get(key).getPassword().equals(enteredPassword)) {
                     loggedInUser = registeredUsers.get(key);
                     loggedInUser.setUserLoggedIn(true);
                     System.out.println("User logged in successfully!");
                 }
             } else {
-                System.out.println(
-                        "This phone number does not exist in the database. Create a new account with this number or login.");
-                System.exit(0);
+                continue;
             }
+
+        }
+        if (flag == false) {
+            System.out.println(
+                    "This phone number does not exist in the database. Create a new account with this number or login.");
+            System.exit(0);
         }
         // Read user input
         // TODO Auto-generated method stub
