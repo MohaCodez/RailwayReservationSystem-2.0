@@ -25,3 +25,6 @@
 /HashMapFileHandler.class
 /HashMapIO.class
 /TicketHashMapIO.class
+/Admin.class
+/User.class
+/UserHashMapIO.class

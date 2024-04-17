@@ -56,6 +56,9 @@ public class Main {
         } else {
             trainMap = HashMapIO.readHashMapFromFile(filePath);
         }
+        
+        
+        
 
         File dataFile2 = new File(userDataFilePath);
         boolean signUpCompulsory = false;
@@ -69,6 +72,7 @@ public class Main {
         } else {
             registeredUsers = UserHashMapIO.readHashMapFromFile(userDataFilePath);
         }
+        
 
         System.out.println("Hi! Welcome to the Railway Reservation System!");
         // Scanner scanner = new Scanner(System.in); // Create a Scanner object to read
@@ -107,6 +111,9 @@ public class Main {
                 System.out.println("Invalid choice. Please enter a valid input!");
                 break;
         }
+        
+        
+        
 
         do {
             System.out.println("\nWelcome to Railway Reservation System Main Menu! \nPress:");
@@ -153,25 +160,19 @@ public class Main {
         registeredUsers = UserHashMapIO.readHashMapFromFile(userDataFilePath);
         System.out.println(registeredUsers);
         Set<String> keys = registeredUsers.keySet();
-        System.out.println(keys);
-        boolean flag = false;
         for (String key : keys) {
             if (key.equals(enteredPhoneNumber)) {
-                flag = true;
                 if (registeredUsers.get(key).getPassword().equals(enteredPassword)) {
                     loggedInUser = registeredUsers.get(key);
                     loggedInUser.setUserLoggedIn(true);
                     System.out.println("User logged in successfully!");
+                    break;
                 }
             } else {
-                continue;
+                System.out.println(
+                        "This phone number does not exist in the database. Create a new account with this number or login.");
+                System.exit(0);
             }
-
-        }
-        if (flag == false) {
-            System.out.println(
-                    "This phone number does not exist in the database. Create a new account with this number or login.");
-            System.exit(0);
         }
         // Read user input
         // TODO Auto-generated method stub
@@ -252,20 +253,22 @@ public class Main {
         scanner.nextLine(); // Consume newline
 
         System.out.print("Would you like to auto-fill details?(Y/N): ");
-        String aChoice = scanner.next().toLowerCase();
+        String aChoice = scanner.nextLine().toLowerCase();
 
-        String name = "foo", phoneNumber = "foo", email = "foo@foo.com";
+        String name = "foo", phoneNumber = "foo", email = "foo@foo.com";//just to initialize I believe.
+        
         int age = 0;
 
         if (aChoice.equals("y")) {
-            // foo
+            
             registeredUsers = UserHashMapIO.readHashMapFromFile(userDataFilePath);
             name = loggedInUser.getName();
             age = loggedInUser.getAge();
             phoneNumber = loggedInUser.getPhoneNumber();
             email = loggedInUser.getEmailId();
 
-        } else {
+        } 
+        else {
             // Ask for person details
             System.out.print("Enter passenger's name: ");
             name = scanner.nextLine();
@@ -306,12 +309,11 @@ public class Main {
 
         // Ask for train details
 
-        System.out.print(
-                "\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
+        System.out.print("\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
         String routeChoice = scanner.nextLine();
+        
         while (!routeMap.containsKey(routeChoice)) {
-            System.out
-                    .print("Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
+            System.out.print("Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
             String routeChoicex = scanner.nextLine();
             routeChoice = routeChoicex;
         }
