@@ -1,5 +1,5 @@
 
-public class General extends Person {
+public class General extends Passenger {
     public General(String name, int age, String phoneNumber, String emailId) {
         super(name, age, phoneNumber, emailId);
     }

@@ -1,5 +1,5 @@
 
-public class Military extends Person {
+public class Military extends Passenger {
     private static final double DISCOUNT_PERCENTAGE = 0.4;
 
     public Military(String name, int age, String phoneNumber, String emailId) {

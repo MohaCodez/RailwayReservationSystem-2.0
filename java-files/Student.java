@@ -1,5 +1,5 @@
 
-public class Student extends Person {
+public class Student extends Passenger {
     private static final double DISCOUNT_PERCENTAGE = 0.3;
 
     public Student(String name, int age, String phoneNumber, String emailId) {

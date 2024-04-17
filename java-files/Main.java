@@ -6,15 +6,22 @@ import java.util.Scanner;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Main {
     private static HashMap<String, Train> trainMap = new HashMap<>();
     private static HashMap<String, Route> routeMap = new HashMap<>();
-    private static String filePath = "data.ser";
+    private static HashMap<String, User> registeredUsers = new HashMap<String, User>();
+    private static String filePath = "data.ser"; // train data file path
+    public static String userDataFilePath = "userdata.ser"; // user data file path
+    static User loggedInUser = new User();
 
     public static void main(String[] args) {
 
         TicketManager ticketManager = new TicketManager();
+        Admin rrsAdmin = new Admin();
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -50,6 +57,19 @@ public class Main {
             trainMap = HashMapIO.readHashMapFromFile(filePath);
         }
 
+        File dataFile2 = new File(userDataFilePath);
+        boolean signUpCompulsory = false;
+        if (dataFile2.length() == 0) {
+            // User Deven = new User("Deven", 21, "9871422650", "sassysniper007@gmail.com");
+            // registeredUsers.put(Deven.getPhoneNumber(), Deven);
+
+            signUpCompulsory = true;
+            // UserHashMapIO.writeHashMapToFile(filePath, registeredUsers);
+
+        } else {
+            registeredUsers = UserHashMapIO.readHashMapFromFile(userDataFilePath);
+        }
+
         System.out.println("Hi! Welcome to the Railway Reservation System!");
         // Scanner scanner = new Scanner(System.in); // Create a Scanner object to read
         // input
@@ -69,9 +89,17 @@ public class Main {
 
         switch (input) {
             case 1:
+                if (signUpCompulsory == true) {
+                    System.out.println("No accounts exist! You must Sign-Up first to continue.");
+                    signUp(rrsAdmin, scanner);
+                } else {
+                    login(rrsAdmin, scanner);
+                }
 
                 break;
             case 2:
+                signUp(rrsAdmin, scanner);
+                login(rrsAdmin, scanner);
 
                 break;
 
@@ -81,7 +109,7 @@ public class Main {
         }
 
         do {
-            System.out.println("\nWelcome to Railway Reservation System Main Menu! Press:");
+            System.out.println("\nWelcome to Railway Reservation System Main Menu! \nPress:");
             System.out.println("[1] Book a ticket");
             System.out.println("[2] Cancel a ticket");
             System.out.println("[3] Check ticket status");
@@ -107,21 +135,101 @@ public class Main {
                     System.out.println("Invalid choice. Please enter a number between 1 and 4.");
                     break;
             }
-        } while (choice != 4);
+        } while (choice != 4 && loggedInUser.getIsUserLoggedIn());
 
         scanner.close();
 
-        // for (Map.Entry<String, Train> entry : trainMap.entrySet()) {
-        // System.out.println("Key: " + entry.getKey() + ", Value: " +
-        // entry.getValue());
-        // }
-        //
-        // for (Map.Entry<String, Ticket> entry :
-        // ticketManager.getBookedTickets().entrySet()) {
-        // System.out.println("Key: " + entry.getKey() + ", Value: " +
-        // entry.getValue());
-        // }
+    }
 
+    private static void login(Admin rrsAdmin, Scanner scanner) {
+
+        System.out.println("\nWelcome to the login page of RRS");
+        System.out.println("Enter your phone number: ");
+        String enteredPhoneNumber = scanner.next(); // Read user input
+
+        System.out.println("Enter your password: ");
+        String enteredPassword = scanner.next();
+
+        registeredUsers = UserHashMapIO.readHashMapFromFile(userDataFilePath);
+        System.out.println(registeredUsers);
+        Set<String> keys = registeredUsers.keySet();
+        for (String key : keys) {
+            if (key.equals(enteredPhoneNumber)) {
+                if (registeredUsers.get(key).getPassword().equals(enteredPassword)) {
+                    loggedInUser = registeredUsers.get(key);
+                    loggedInUser.setUserLoggedIn(true);
+                    System.out.println("User logged in successfully!");
+                }
+            } else {
+                System.out.println(
+                        "This phone number does not exist in the database. Create a new account with this number or login.");
+                System.exit(0);
+            }
+        }
+        // Read user input
+        // TODO Auto-generated method stub
+    }
+
+    private static void signUp(Admin rrsAdmin, Scanner scanner) {
+        // TODO Auto-generated method stub
+        System.out.println("Enter your first name: ");
+        String enteredName = scanner.next(); // Read user input
+
+        boolean flag2 = false;
+        String dobString = "";
+
+        do {
+
+            try {
+                System.out.println("Enter your date of birth (DD-MM-YYYY):");
+                dobString = scanner.next();
+                flag2 = false;
+            } catch (DateTimeParseException e) {
+                System.out.println("Bad date entered! Try again!");
+                flag2 = true;
+            }
+
+        } while (flag2);
+        // Define the date format
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        // Parse the date of birth string into a LocalDate object
+        LocalDate dob = LocalDate.parse(dobString, dateFormatter);
+
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate the age using Period class
+        Period age = Period.between(dob, currentDate);
+        int currentAge = age.getYears();
+
+        System.out.println("Enter your email: ");
+        String enteredEmail = scanner.next(); // Read user input
+
+        System.out.println("Enter your phone number: ");
+        String enteredPhoneNumber = scanner.next(); // Read user input
+
+        String enteredPassword = "";
+        String enteredConfirmPassword = "";
+
+        do {
+            System.out.println("Enter your password: ");
+            enteredPassword = scanner.next(); // Read user input
+
+            System.out.println("Confirm your password: ");
+            enteredConfirmPassword = scanner.next();
+            if (enteredConfirmPassword.equals(enteredPassword) == false) {
+                System.out.println("The passwords do not match! Enter the passwords again:");
+            }
+
+        } while (!enteredConfirmPassword.equals(enteredPassword));
+
+        // System.out.println("reached here!");
+
+        rrsAdmin.signUserUp(enteredName, currentAge, enteredPhoneNumber, enteredEmail, enteredPassword);
+
+        // System.out.println("reached here!2");
+        // Read user input
     }
 
     private static void bookTicket(TicketManager ticketManager, Scanner scanner) {
@@ -136,40 +244,56 @@ public class Main {
         int categoryChoice = scanner.nextInt();
         scanner.nextLine(); // Consume newline
 
-        // Ask for person details
-        System.out.print("Enter passenger's name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter passenger's age: ");
+        System.out.print("Would you like to auto-fill details?(Y/N): ");
+        String aChoice = scanner.next().toLowerCase();
+
+        String name = "foo", phoneNumber = "foo", email = "foo@foo.com";
         int age = 0;
-        try {
-            age = scanner.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("Enter a valid age!");
+
+        if (aChoice.equals("y")) {
+            // foo
+            registeredUsers = UserHashMapIO.readHashMapFromFile(userDataFilePath);
+            name = loggedInUser.getName();
+            age = loggedInUser.getAge();
+            phoneNumber = loggedInUser.getPhoneNumber();
+            email = loggedInUser.getEmailId();
+
+        } else {
+            // Ask for person details
+            System.out.print("Enter passenger's name: ");
+            name = scanner.nextLine();
+            System.out.print("Enter passenger's age: ");
+            try {
+                age = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Enter a valid age!");
+            }
+            scanner.nextLine(); // Consume newline
+            System.out.print("Enter passenger's phone number: ");
+            phoneNumber = scanner.nextLine();
+            System.out.print("Enter passenger's email: ");
+            email = scanner.nextLine();
+
         }
-        scanner.nextLine(); // Consume newline
-        System.out.print("Enter passenger's phone number: ");
-        String phoneNumber = scanner.nextLine();
-        System.out.print("Enter passenger's email: ");
-        String email = scanner.nextLine();
 
         // Create the Person object based on the provided category and details
-        Person person;
+        Passenger passenger;
         switch (categoryChoice) {
             case 1:
-                person = new Student(name, age, phoneNumber, email);
+                passenger = new Student(name, age, phoneNumber, email);
                 break;
             case 2:
-                person = new SeniorCitizen(name, age, phoneNumber, email);
+                passenger = new SeniorCitizen(name, age, phoneNumber, email);
                 break;
             case 3:
-                person = new Military(name, age, phoneNumber, email);
+                passenger = new Military(name, age, phoneNumber, email);
                 break;
             case 4:
-                person = new Disabled(name, age, phoneNumber, email);
+                passenger = new Disabled(name, age, phoneNumber, email);
                 break;
             case 5:
             default:
-                person = new General(name, age, phoneNumber, email);
+                passenger = new General(name, age, phoneNumber, email);
                 break;
         }
 
@@ -266,7 +390,7 @@ public class Main {
         }
 
         // Book the ticket using the TicketManager
-        Ticket ticket = ticketManager.bookTicket(person, train, coachType, seatNumber, coachNumber);
+        Ticket ticket = ticketManager.bookTicket(passenger, train, coachType, seatNumber, coachNumber);
         if (ticket != null) {
             System.out.println("Ticket booked successfully:");
             // Update the state of the coach after booking a ticket
@@ -338,10 +462,10 @@ public class Main {
             // Display ticket information
             System.out.println("\nTicket Information:");
             System.out.println("Ticket ID: " + ticket.getTicketId());
-            System.out.println("Passenger Name: " + ticket.getPerson().getName());
-            System.out.println("Passenger Age: " + ticket.getPerson().getAge());
-            System.out.println("Passenger Phone Number: " + ticket.getPerson().getPhoneNumber());
-            System.out.println("Passenger Email: " + ticket.getPerson().getEmailId());
+            System.out.println("Passenger Name: " + ticket.getPassenger().getName());
+            System.out.println("Passenger Age: " + ticket.getPassenger().getAge());
+            System.out.println("Passenger Phone Number: " + ticket.getPassenger().getPhoneNumber());
+            System.out.println("Passenger Email: " + ticket.getPassenger().getEmailId());
             System.out.println("Train ID: " + ticket.getTrainID());
             System.out.println("Coach Type: " + ticket.getCoachType());
             System.out.println("Seat Number: " + ticket.getSeatNumber());
@@ -352,5 +476,4 @@ public class Main {
             System.out.println("Ticket with ID " + ticketId + " does not exist.");
         }
     }
-
 }
