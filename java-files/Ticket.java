@@ -7,15 +7,15 @@ public class Ticket implements Serializable{
     private int coachType;
     private int seatNumber;
     private int coachNumber; // Added field
-    private Person person;
+    private Passenger passenger;
 
-    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber, Person person) {
+    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber, Passenger passenger) {
         this.trainID = trainID;
         this.ticketId = generateTicketId();
         this.coachType = coachType;
         this.seatNumber = seatNumber;
         this.coachNumber = coachNumber; // Set coachNumber
-        this.person = person;
+        this.passenger = passenger;
     }
 
     private String generateTicketId() {
@@ -43,8 +43,8 @@ public class Ticket implements Serializable{
         return coachNumber;
     }
     
-    public Person getPerson() {
-    	return this.person;
+    public Passenger getPassenger() {
+    	return this.passenger;
     }
     
     public String getDetails() {
@@ -55,10 +55,10 @@ public class Ticket implements Serializable{
         sb.append("Coach Type: ").append(coachType).append("\n");
         sb.append("Seat Number: ").append(seatNumber).append("\n");
         sb.append("Coach Number: ").append(coachNumber).append("\n");
-        sb.append("Passenger Name: ").append(person.getName()).append("\n");
-        sb.append("Passenger Age: ").append(person.getAge()).append("\n");
-        sb.append("Passenger Phone Number: ").append(person.getPhoneNumber()).append("\n");
-        sb.append("Passenger Email: ").append(person.getEmailId()).append("\n");
+        sb.append("Passenger Name: ").append(passenger.getName()).append("\n");
+        sb.append("Passenger Age: ").append(passenger.getAge()).append("\n");
+        sb.append("Passenger Phone Number: ").append(passenger.getPhoneNumber()).append("\n");
+        sb.append("Passenger Email: ").append(passenger.getEmailId()).append("\n");
         return sb.toString();
     }
     

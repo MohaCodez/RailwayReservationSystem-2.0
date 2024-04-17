@@ -20,9 +20,9 @@ public class TicketManager implements Serializable {
     }
 
     // Method to book a ticket for a passenger on a train
-    public Ticket bookTicket(Person person, Train train, int coachType, int seatNumber, int coachNumber) {
+    public Ticket bookTicket(Passenger passenger, Train train, int coachType, int seatNumber, int coachNumber) {
         TicketHashMapIO.readHashMapFromFile(ticketFilePath);
-        Ticket ticket = train.bookTicket(person, coachType, seatNumber, coachNumber);
+        Ticket ticket = train.bookTicket(passenger, coachType, seatNumber, coachNumber);
         if (ticket != null) {
             bookedTickets.put(ticket.getTicketId(), ticket);
             TicketHashMapIO.writeHashMapToFile(ticketFilePath, bookedTickets);

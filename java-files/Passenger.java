@@ -1,12 +1,12 @@
 import java.io.Serializable;
 
-public abstract class Person implements Serializable {
+public abstract class Passenger implements Serializable {
     private String name;
     private int age;
     private String phoneNumber;
     private String emailId;
 
-    public Person(String name, int age, String phoneNumber, String emailId) {
+    public Passenger(String name, int age, String phoneNumber, String emailId) {
         this.name = name;
         this.age = age;
         this.phoneNumber = phoneNumber;
