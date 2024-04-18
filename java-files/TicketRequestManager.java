@@ -1,63 +1,79 @@
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 
-public class TicketRequestManager implements Serializable{
+public class TicketRequestManager implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private HashMap<String, TicketRequest> requests;
     private String ticketRequestFilePath = "ticketRequests.ser";
-    File ticketRequestFile = new File(ticketRequestFilePath);
-    
+    private File ticketRequestFile;
+
     private HashMap<String, Ticket> bookedTickets;
     private String ticketFilePath = "tatkalTicketData.ser";
-    File ticketFile = new File(ticketFilePath);
-    
+    private File ticketFile;
+
     public TicketRequestManager() {
         System.out.println("Constructor invoked!");
-        if (ticketRequestFile.length() == 0) {
-            this.requests = new HashMap<>();
+        this.requests = new HashMap<>();
+        this.bookedTickets = new HashMap<>();
+        this.ticketRequestFile = new File(ticketRequestFilePath);
+        this.ticketFile = new File(ticketFilePath);
+        
+        initializeRequests();
+        initializeBookedTickets();
+    }
+
+    private void initializeRequests() {
+        if (!ticketRequestFile.exists()) {
+            try {
+                ticketRequestFile.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error creating file: " + ticketRequestFile.getAbsolutePath());
+                e.printStackTrace();
+            }
         } else {
             System.out.println("Hashmap Read in Constructor!");
             this.requests = TicketRequestHashMapIO.readHashMapFromFile(ticketRequestFilePath);
         }
-        
-        if (ticketFile.length() == 0) {
-            this.bookedTickets = new HashMap<>();
+    }
+
+    private void initializeBookedTickets() {
+        if (!ticketFile.exists()) {
+            try {
+                ticketFile.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error creating file: " + ticketFile.getAbsolutePath());
+                e.printStackTrace();
+            }
         } else {
             System.out.println("Hashmap Read in Constructor!");
             this.bookedTickets = TicketHashMapIO.readHashMapFromFile(ticketFilePath);
         }
-        
-        
+    }
 
+
+    public HashMap<String, TicketRequest> getRequests() {
+        return new HashMap<>(requests); // Return a copy to maintain encapsulation
     }
-    
-    public HashMap<String, TicketRequest> getRequests(){
-    	return this.requests;
-    }
-    
+
     public void addRequestToWaitingList(TicketRequest request) {
-    	this.requests.put(request.getRequestId(), request);
-        TicketRequestHashMapIO.writeHashMapToFile(ticketRequestFilePath, this.requests);
+        requests.put(request.getRequestId(), request);
+        TicketRequestHashMapIO.writeHashMapToFile(ticketRequestFilePath, requests);
     }
-    
-    
+
     public Ticket bookTicket(TicketRequest request) {
-        TicketRequestHashMapIO.readHashMapFromFile(ticketFilePath);
+        requests = TicketRequestHashMapIO.readHashMapFromFile(ticketRequestFilePath);
         Ticket ticket = request.getTrain().bookTicket(request.getPassenger(), request.getCoachType(), request.getSeatNumber(), request.getCoachNumber());
         if (ticket != null) {
+            request.setStatusAsBooked();
+            requests.put(request.getRequestId(), request);
+            TicketRequestHashMapIO.writeHashMapToFile(ticketRequestFilePath, requests);
             bookedTickets.put(ticket.getTicketId(), ticket);
             TicketHashMapIO.writeHashMapToFile(ticketFilePath, bookedTickets);
-            ///////////////////////////////////////
-            request.setStatusAsBooked();
-            ///////////////////////////////////////
-            this.requests.put(request.getRequestId(), request);
-            TicketRequestHashMapIO.writeHashMapToFile(ticketRequestFilePath, this.requests);
-
         }
         request.setTicket(ticket);
-        this.bookedTickets.put(ticket.getTicketId(), ticket);
-        TicketHashMapIO.writeHashMapToFile(ticketFilePath, this.bookedTickets);
         return ticket;
     }
     

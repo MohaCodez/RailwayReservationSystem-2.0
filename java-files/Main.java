@@ -172,6 +172,7 @@ public class Main {
                         break;
                     }
                     break;
+                    
                 case 4:
                 	tatkalBookerEmployeeTasks(requestManager, scanner);
                 	break;
@@ -197,12 +198,16 @@ public class Main {
 		System.out.print("Enter Employee Login Password: ");
     	String password = scanner.nextLine();
     	if(!password.equals(Employee.getPassword())) {
-    		System.out.print("Incorrect Password");
+    		System.out.println("Incorrect Password");
     	}
     	else {
+    		if(requestManager.getRequests()!=null) {
     		List<TicketRequest> requests = new ArrayList<> (requestManager.getRequests().values());
     		for(TicketRequest request: requests) {
     			requestManager.bookTicket(request);
+    			}
+    		}else {
+    			System.out.println("No ticket requests in queue");
     		}
     	}
     	

@@ -2,7 +2,8 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class Ticket implements Serializable{
-    private String ticketId;
+	private static final long serialVersionUID = 1L;
+	private String ticketId;
     private String trainID;
     private int coachType;
     private int seatNumber;

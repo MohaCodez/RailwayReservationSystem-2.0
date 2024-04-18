@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class TicketRequest implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Passenger passenger;
 	private Train train;
 	private int coachType;

@@ -1,7 +1,8 @@
 import java.io.Serializable;
 
 public abstract class Passenger implements Serializable {
-    private String name;
+	private static final long serialVersionUID = 1L;
+	private String name;
     private int age;
     private String phoneNumber;
     private String emailId;
