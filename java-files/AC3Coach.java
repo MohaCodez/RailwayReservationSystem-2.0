@@ -1,8 +1,7 @@
 import java.io.Serializable;
 
 class AC3Coach extends BaseCoach implements Serializable {
-	private static final long serialVersionUID = 1L;
-	static final private double COACH_PRICE = 1000.0;
+    static final private double COACH_PRICE = 1000.0;
 
     public AC3Coach() {
         super(90);

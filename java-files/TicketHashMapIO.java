@@ -1,8 +1,8 @@
 import java.io.*;
 import java.util.HashMap;
 
-public class TicketHashMapIO implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class TicketHashMapIO {
+
     // Method to write HashMap<String, Ticket> to a .ser file
     public static void writeHashMapToFile(String filePath, HashMap<String, Ticket> hashMap) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filePath))) {

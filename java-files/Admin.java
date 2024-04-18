@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Admin implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private HashMap<String, User> registeredUsers;
+    private HashMap<String, User> registeredUsers;
     File userFile = new File(Main.userDataFilePath);
 
     public Admin() {

@@ -3,8 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Train implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private String trainId;
+    private String trainId;
     private Route route;
     private AC1Coach[] ac1Coach;
     private AC2Coach[] ac2Coaches;

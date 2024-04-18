@@ -1,7 +1,6 @@
 
 public class SeniorCitizen extends Passenger {
-	private static final long serialVersionUID = 1L;
-	private static final double DISCOUNT_PERCENTAGE = 0.5;
+    private static final double DISCOUNT_PERCENTAGE = 0.5;
 
     public SeniorCitizen(String name, int age, String phoneNumber, String emailId) {
         super(name, age, phoneNumber, emailId);

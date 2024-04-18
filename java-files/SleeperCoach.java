@@ -1,7 +1,6 @@
 
 class SleeperCoach extends BaseCoach {
-	private static final long serialVersionUID = 1L;
-	static final private double COACH_PRICE = 500.0;
+    static final private double COACH_PRICE = 500.0;
 
     public SleeperCoach() {
         super(100);

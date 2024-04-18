@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TicketManager implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private HashMap<String, Ticket> bookedTickets;
+    private HashMap<String, Ticket> bookedTickets;
     private String ticketFilePath = "ticketData.ser";
     File ticketFile = new File(ticketFilePath);
 
@@ -44,6 +43,7 @@ public class TicketManager implements Serializable {
 
     // Method to display booked tickets
     public void displayBookedTickets() {
+        // TicketHashMapIO.readHashMapFromFile(ticketFilePath);
         System.out.println("Booked Tickets:");
         for (Ticket ticket : bookedTickets.values()) {
             System.out.println(ticket);
