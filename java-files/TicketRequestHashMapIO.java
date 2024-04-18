@@ -1,10 +1,11 @@
 import java.io.*;
 import java.util.HashMap;
+import java.io.Serializable;
 
-public class TicketHashMapIO implements Serializable{
+public class TicketRequestHashMapIO implements Serializable{
 	private static final long serialVersionUID = 1L;
     // Method to write HashMap<String, Ticket> to a .ser file
-    public static void writeHashMapToFile(String filePath, HashMap<String, Ticket> hashMap) {
+    public static void writeHashMapToFile(String filePath, HashMap<String, TicketRequest> hashMap) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filePath))) {
             outputStream.writeObject(hashMap);
             System.out.println("HashMap has been successfully written to file: " + filePath);
@@ -14,13 +15,20 @@ public class TicketHashMapIO implements Serializable{
     }
 
     // Method to read HashMap<String, Ticket> from a .ser file
-    public static HashMap<String, Ticket> readHashMapFromFile(String filePath) {
-        HashMap<String, Ticket> hashMap = null;
+    public static HashMap<String, TicketRequest> readHashMapFromFile(String filePath) {
+        HashMap<String, TicketRequest> hashMap = null;
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filePath))) {
             Object obj = inputStream.readObject();
-            if (obj instanceof HashMap) {
-                hashMap = (HashMap<String, Ticket>) obj;
-                System.out.println("HashMap has been successfully read from file: " + filePath);
+            if (obj instanceof HashMap<?, ?>) {
+                HashMap<?, ?> rawMap = (HashMap<?, ?>) obj;
+                // Check if the HashMap contains the correct types
+                if (rawMap.isEmpty() || rawMap.entrySet().iterator().next().getKey() instanceof String &&
+                        rawMap.entrySet().iterator().next().getValue() instanceof TicketRequest) {
+                    hashMap = (HashMap<String, TicketRequest>) rawMap;
+                    System.out.println("HashMap has been successfully read from file: " + filePath);
+                } else {
+                    System.err.println("Error: File does not contain a HashMap<String, TicketRequest>");
+                }
             } else {
                 System.err.println("Error: File does not contain a HashMap");
             }
@@ -29,5 +37,6 @@ public class TicketHashMapIO implements Serializable{
         }
         return hashMap;
     }
+
 
 }
