@@ -14,7 +14,7 @@ public class Main {
     private static HashMap<String, Train> trainMap = new HashMap<>();
     private static HashMap<String, Route> routeMap = new HashMap<>();
     private static HashMap<String, User> registeredUsers = new HashMap<String, User>();
-    private static String filePath = "data.ser"; // train data file path
+    private static String filePath = "traindata.ser"; // train data file path
     public static String userDataFilePath = "userdata.ser"; // user data file path
     static User loggedInUser = new User();
 
@@ -24,16 +24,29 @@ public class Main {
         Admin rrsAdmin = new Admin();
         Scanner scanner = new Scanner(System.in);
         int choice;
+        boolean isTatkaalPossible = false;
 
-        // Create routes
-        // Map<String, Route> routeMap = new HashMap<>();
+        LocalTime startTime = LocalTime.of(9, 0); // Example: 9:00 AM
+        LocalTime endTime = LocalTime.of(10, 0); // Example: 5:00 PM
 
-        Route goaToMumbaiRoute = new Route(1, "Goa", "Mumbai", LocalTime.of(8, 0), LocalTime.of(14, 0),
-                LocalDate.of(2024, 4, 15), 1500.0);
-        Route mumbaiToGoaRoute = new Route(2, "Mumbai", "Goa", LocalTime.of(10, 0), LocalTime.of(16, 0),
-                LocalDate.of(2024, 4, 16), 1500.0);
-        Route goaToBangaloreRoute = new Route(3, "Goa", "Bangalore", LocalTime.of(9, 0), LocalTime.of(18, 0),
-                LocalDate.of(2024, 4, 17), 2000.0);
+        // Get the current time
+        LocalTime currentTime = LocalTime.now();
+        LocalDate currentDate = LocalDate.now();
+
+        // Check if the current time is within the specified range
+        if (currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
+            isTatkaalPossible = true;
+            System.out.println("Tatkaal Option is available!");
+        } else {
+            System.out.println("Tatkaal Option is not available!");
+        }
+
+        Route goaToMumbaiRoute = new Route(1, "Goa", "Mumbai", LocalTime.of(10, 0), LocalTime.of(14, 0),
+                currentDate.plusDays(1), 1500.0);
+        Route mumbaiToGoaRoute = new Route(2, "Mumbai", "Goa", LocalTime.of(12, 0), LocalTime.of(16, 0),
+                currentDate.plusDays(2), 1500.0);
+        Route goaToBangaloreRoute = new Route(3, "Goa", "Bangalore", LocalTime.of(14, 0), LocalTime.of(16, 0),
+                currentDate.plusDays(2), 2000.0);
 
         routeMap.put("1", goaToMumbaiRoute);
         routeMap.put("2", mumbaiToGoaRoute);
@@ -146,9 +159,7 @@ public class Main {
         System.out.println("\nWelcome to the login page of RRS");
         System.out.println("Enter your phone number: ");
         String enteredPhoneNumber = scanner.next(); // Read user input
-
-        System.out.println("Enter your password: ");
-        String enteredPassword = scanner.next();
+        String enteredPassword;
 
         registeredUsers = UserHashMapIO.readHashMapFromFile(userDataFilePath);
         System.out.println(registeredUsers);
@@ -158,11 +169,20 @@ public class Main {
         for (String key : keys) {
             if (key.equals(enteredPhoneNumber)) {
                 flag = true;
-                if (registeredUsers.get(key).getPassword().equals(enteredPassword)) {
-                    loggedInUser = registeredUsers.get(key);
-                    loggedInUser.setUserLoggedIn(true);
-                    System.out.println("User logged in successfully!");
-                }
+                do {
+                    System.out.println("Enter your password: ");
+                    enteredPassword = scanner.next();
+
+                    if (registeredUsers.get(key).getPassword().equals(enteredPassword)) {
+                        loggedInUser = registeredUsers.get(key);
+                        loggedInUser.setUserLoggedIn(true);
+                        System.out.println("User logged in successfully!");
+                    } else {
+                        System.out.println("Incorrect password! Please try again.");
+                        loggedInUser.setUserLoggedIn(false);
+
+                    }
+                } while (!registeredUsers.get(key).getPassword().equals(enteredPassword));
             } else {
                 continue;
             }
@@ -173,12 +193,10 @@ public class Main {
                     "This phone number does not exist in the database. Create a new account with this number or login.");
             System.exit(0);
         }
-        // Read user input
-        // TODO Auto-generated method stub
+
     }
 
     private static void signUp(Admin rrsAdmin, Scanner scanner) {
-        // TODO Auto-generated method stub
         System.out.println("Enter your first name: ");
         String enteredName = scanner.next(); // Read user input
 
