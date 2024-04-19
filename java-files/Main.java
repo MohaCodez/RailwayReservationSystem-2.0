@@ -422,6 +422,8 @@ public class Main {
                     coachNumber = scanner.nextInt();
                 }
                 break;
+            case 4:
+                System.out.println("You have selected a sleeping coach");
             default:
                 System.out.println("Invalid coach type.");
                 return; // Exit the method if coach type is invalid
