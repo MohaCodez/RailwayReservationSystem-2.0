@@ -119,53 +119,52 @@ public class Train implements Serializable {
     public void setRoute(Route route) {
         this.route = route;
     }
-    
-    
-    
-    
+
     public BaseCoach getCoach(int coachType, int coachNumber) {
-    	switch(coachType) {
-    	case 1: return this.ac1Coach[coachNumber];
-    	case 2: return this.ac2Coaches[coachNumber];
-    	case 3: return this.ac3Coaches[coachNumber];
-    	case 4: return this.sleeperCoaches[coachNumber];
-    	default: return null;
-    	}
+        switch (coachType) {
+            case 1:
+                return this.ac1Coach[coachNumber];
+            case 2:
+                return this.ac2Coaches[coachNumber];
+            case 3:
+                return this.ac3Coaches[coachNumber];
+            case 4:
+                return this.sleeperCoaches[coachNumber];
+            default:
+                return null;
+        }
     }
-    
+
     public void setCoach(BaseCoach coach, int coachNumber) {
-    	int coachType = 0;
-    	if (coach instanceof AC1Coach) {
-    		coachType = 1;
-    	}
-    	else if(coach instanceof AC2Coach){
-    		coachType = 2;
-    	}
-    	else if(coach instanceof AC3Coach){
-    		coachType = 3;
-    	}
-    	else if(coach instanceof SleeperCoach){
-    		coachType = 4;
-    	}
-    	
-    		
-    	
-    	
-    	
-    	
-    	switch(coachType) {
-    	case 1: this.ac1Coach[coachNumber] = (AC1Coach)coach;
-    		break;
-    	case 2: this.ac2Coaches[coachNumber] = (AC2Coach)coach;
-    		break;
-    	case 3: this.ac3Coaches[coachNumber] = (AC3Coach)coach;
-    		break;
-    	case 4: this.sleeperCoaches[coachNumber] = (SleeperCoach)coach;
-    		break;
-    	default: break;
-    	}
+        int coachType = 0;
+        if (coach instanceof AC1Coach) {
+            coachType = 1;
+        } else if (coach instanceof AC2Coach) {
+            coachType = 2;
+        } else if (coach instanceof AC3Coach) {
+            coachType = 3;
+        } else if (coach instanceof SleeperCoach) {
+            coachType = 4;
+        }
+
+        switch (coachType) {
+            case 1:
+                this.ac1Coach[coachNumber] = (AC1Coach) coach;
+                break;
+            case 2:
+                this.ac2Coaches[coachNumber] = (AC2Coach) coach;
+                break;
+            case 3:
+                this.ac3Coaches[coachNumber] = (AC3Coach) coach;
+                break;
+            case 4:
+                this.sleeperCoaches[coachNumber] = (SleeperCoach) coach;
+                break;
+            default:
+                break;
+        }
     }
-    
+
     public void updateCoachState(int coachType, int coachNumber, int seatNumber, boolean book) {
         BaseCoach coach = getCoach(coachType, coachNumber);
         if (book) {
@@ -175,5 +174,4 @@ public class Train implements Serializable {
             this.setCoach(coach, coachNumber);
         }
     }
-    
 }

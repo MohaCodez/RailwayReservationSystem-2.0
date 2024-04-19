@@ -420,7 +420,7 @@ public class Main {
         // Book the ticket using the TicketManager
         Ticket ticket = ticketManager.bookTicket(passenger, train, coachType, seatNumber, coachNumber);
         if (ticket != null) {
-            System.out.println("Ticket booked successfully:");
+            System.out.println("\nTicket booked successfully:");
             // Update the state of the coach after booking a ticket
             train.updateCoachState(coachType, coachNumber, seatNumber, true);
 
