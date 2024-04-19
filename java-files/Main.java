@@ -366,7 +366,10 @@ public class Main {
 
         // Ask for coach details
         System.out.print(
-                "\nList of Available Coaches: \n[1] for AC1 \n[2] for AC2 \n[3] for AC3\n[4] for Sleeper \nEnter Coach Type: ");
+                "\nList of Available Coaches: \n[1] for AC1 [Rs. " + AC1Coach.coachPrice() + "]\n[2] for AC2 [Rs. "
+                        + AC2Coach.coachPrice() + "]\n[3] for AC3 [Rs. " + AC3Coach.coachPrice()
+                        + "]\n[4] for Sleeper [Rs. "
+                        + SleeperCoach.coachPrice() + "]\nEnter Coach Type: ");
         int coachType = scanner.nextInt();
 
         System.out.print("Enter coach number: ");
