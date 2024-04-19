@@ -53,7 +53,7 @@ public class Admin implements Serializable {
             registeredUsers.put(newUser.getPhoneNumber(), newUser);
             UserHashMapIO.writeHashMapToFile(Main.userDataFilePath, registeredUsers);
             System.out.println("Sign-Up successful!");
-            System.out.println(registeredUsers);
+            // System.out.println(registeredUsers);
         }
         // } else {
         // }

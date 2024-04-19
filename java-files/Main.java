@@ -29,22 +29,26 @@ public class Main {
         int choice;
         boolean isTatkaalPossible = false;
 
-        LocalTime startTime = LocalTime.of(9, 0); // Example: 9:00 AM
-        LocalTime endTime = LocalTime.of(10, 0); // Example: 5:00 PM
+        int tatkalStartHrs = 9;
+        int tatkalEndHrs = 10;
+
+        LocalTime startTime = LocalTime.of(tatkalStartHrs, 0); // Example: 9:00 AM
+        LocalTime endTime = LocalTime.of(tatkalEndHrs, 0); // Example: 5:00 PM
 
         // Get the current time
         LocalTime currentTime = LocalTime.now();
         LocalDate currentDate = LocalDate.now();
 
         // Check if the current time is within the specified range
-        System.out.println("###############################################################\n");
+        System.out.println("#####################################################################\n");
         if (currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
             isTatkaalPossible = true;
-            System.out.println("                Tatkal Option is available!                ");
+            System.out.println("                   Tatkal Option is available!                   ");
         } else {
-            System.out.println("Tatkal Option is not available! Come back between 9AM and 10AM.");
+            System.out.println("Tatkal Option is not available! Come back between " + tatkalStartHrs + ":00 and "
+                    + tatkalEndHrs + ":00 HRS.");
         }
-        System.out.println("\n###############################################################\n");
+        System.out.println("\n#####################################################################\n");
 
         Route goaToMumbaiRoute = new Route(1, "Goa", "Mumbai", LocalTime.of(10, 0), LocalTime.of(14, 0),
                 currentDate.plusDays(1), 1500.0);

@@ -83,12 +83,12 @@ public class Ticket implements Serializable {
         sb.append("Passenger Email: ").append(passenger.getEmailId()).append("\n");
         sb.append("\n##### Pricing Information #####").append("\n");
 
-        sb.append("          Route Fare: ").append(route.getPrice()).append("\n");
-        sb.append("          Coach Fare: ").append(coachFare).append("\n");
+        sb.append("(+)       Route Fare: ").append(route.getPrice()).append("\n");
+        sb.append("(+)       Coach Fare: ").append(coachFare).append("\n");
         double totalBaseFare = route.getPrice() + coachFare;
-        sb.append("     Total Base Fare: ").append(totalBaseFare).append("\n");
+        sb.append("     Total Base Fare: ").append(totalBaseFare).append("\n\n");
         double discount = passenger.calculateDiscount(totalBaseFare);
-        sb.append("            Discount: ").append(discount).append("\n");
+        sb.append("(-)         Discount: ").append(discount).append("\n");
         sb.append("-------------------------------").append("\n");
         sb.append("Total Amount Payable: ").append(totalBaseFare - discount).append("\n");
         sb.append("-------------------------------").append("\n");
