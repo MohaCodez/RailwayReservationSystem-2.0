@@ -2,6 +2,8 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class Ticket implements Serializable {
+    private static final long serialVersionUID = -4553063748262744606L;
+
     private String ticketId;
     private String trainID;
     private int coachType;
@@ -47,7 +49,7 @@ public class Ticket implements Serializable {
         return this.passenger;
     }
 
-    public String getCoachNameFromNumber(int num) {
+    public String getCoachNameFromType(int num) {
         switch (num) {
             case 1:
                 return "AC - 1st Class Coach";
@@ -67,8 +69,8 @@ public class Ticket implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Ticket ID: ").append(ticketId).append("\n");
         sb.append("Train ID: ").append(trainID).append("\n");
-        sb.append("Coach Type: ").append(coachType).append("\n");
-        sb.append("Coach Number: ").append(getCoachNameFromNumber(coachNumber)).append("\n");
+        sb.append("Coach Type: ").append(getCoachNameFromType(coachType)).append("\n");
+        sb.append("Coach Number: ").append(coachNumber).append("\n");
         sb.append("Seat Number: ").append(seatNumber).append("\n");
         sb.append("Passenger Name: ").append(passenger.getName()).append("\n");
         sb.append("Passenger Age: ").append(passenger.getAge()).append("\n");
