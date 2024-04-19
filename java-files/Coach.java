@@ -1,8 +1,8 @@
 import java.io.Serializable;
 
 public interface Coach extends Serializable {
-	void displayCoachDetails();
-    
+    void displayCoachDetails();
+
     boolean bookSeat(int seatNumber);
 
     boolean cancelSeat(int seatNumber);

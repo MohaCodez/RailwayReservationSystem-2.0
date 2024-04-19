@@ -15,20 +15,5 @@
 /Student.class
 /Ticket.class
 /Train.class
-<<<<<<< Updated upstream
-/TicketBooking.class
-/BaseCoach.class
-/TicketManager.class
-=======
 /BookTicket.class
->>>>>>> Stashed changes
 /HashMapFileHandler.class
-/HashMapIO.class
-/TicketHashMapIO.class
-/Admin.class
-/User.class
-/UserHashMapIO.class
-/TatkalTicketBooker.class
-/TicketRequest.class
-/TicketRequestHashMapIO.class
-/TicketRequestManager.class

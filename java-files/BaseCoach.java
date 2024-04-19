@@ -1,7 +1,6 @@
 
 abstract class BaseCoach implements Coach {
-	private static final long serialVersionUID = 1L;
-	protected final int CAPACITY;
+    protected final int CAPACITY;
     protected int bookedSeats;
     protected Seat[] seats;
 

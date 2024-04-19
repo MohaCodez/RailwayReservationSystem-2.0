@@ -1,7 +1,6 @@
 
 public class General extends Passenger {
-	private static final long serialVersionUID = 1L;
-	public General(String name, int age, String phoneNumber, String emailId) {
+    public General(String name, int age, String phoneNumber, String emailId) {
         super(name, age, phoneNumber, emailId);
     }
 

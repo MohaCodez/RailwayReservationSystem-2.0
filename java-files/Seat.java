@@ -1,8 +1,7 @@
 import java.io.Serializable;
 
 class Seat implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private boolean bookingStatus;
+    private boolean bookingStatus;
 
     public boolean isBooked() {
         return this.bookingStatus;

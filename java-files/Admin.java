@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Admin implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private HashMap<String, User> registeredUsers;
+    private HashMap<String, User> registeredUsers;
     File userFile = new File(Main.userDataFilePath);
 
     public Admin() {
@@ -44,6 +43,7 @@ public class Admin implements Serializable {
                 User newUser = new User(enteredName, currentAge, phoneNum, enteredEmail, enteredPassword, true);
                 registeredUsers.put(newUser.getPhoneNumber(), newUser);
                 UserHashMapIO.writeHashMapToFile(Main.userDataFilePath, registeredUsers);
+                System.out.println("Account successfully registered!");
 
             } else {
                 System.out.println("Exiting Program...");
@@ -54,7 +54,7 @@ public class Admin implements Serializable {
             registeredUsers.put(newUser.getPhoneNumber(), newUser);
             UserHashMapIO.writeHashMapToFile(Main.userDataFilePath, registeredUsers);
             System.out.println("Sign-Up successful!");
-            System.out.println(registeredUsers);
+            // System.out.println(registeredUsers);
         }
         // } else {
         // }
