@@ -17,3 +17,7 @@
 /Train.class
 /BookTicket.class
 /HashMapFileHandler.class
+*.class
+*.ser
+java-files\*.ser
+java-files\*.class
