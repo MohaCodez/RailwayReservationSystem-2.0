@@ -308,7 +308,7 @@ public class Main {
         } else {
             // Ask for person details
             System.out.print("Enter passenger's name: ");
-            name = scanner.nextLine();
+            name = scanner.next();
             System.out.print("Enter passenger's age: ");
             try {
                 age = scanner.nextInt();

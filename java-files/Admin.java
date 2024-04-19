@@ -43,6 +43,7 @@ public class Admin implements Serializable {
                 User newUser = new User(enteredName, currentAge, phoneNum, enteredEmail, enteredPassword, true);
                 registeredUsers.put(newUser.getPhoneNumber(), newUser);
                 UserHashMapIO.writeHashMapToFile(Main.userDataFilePath, registeredUsers);
+                System.out.println("Account successfully registered!");
 
             } else {
                 System.out.println("Exiting Program...");
