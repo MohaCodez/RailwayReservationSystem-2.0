@@ -59,7 +59,7 @@ public class Train implements Serializable {
     }
 
     public Ticket bookTicket(Passenger passenger, int coachType, int seatNumber, int coachNumber) {
-        Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger);
+        Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route);
         bookedTickets.put(ticket.getTicketId(), ticket);
         return ticket;
     }

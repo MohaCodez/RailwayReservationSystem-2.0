@@ -10,14 +10,16 @@ public class Ticket implements Serializable {
     private int seatNumber;
     private int coachNumber; // Added field
     private Passenger passenger;
+    private Route route;
 
-    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber, Passenger passenger) {
+    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber, Passenger passenger, Route route) {
         this.trainID = trainID;
         this.ticketId = generateTicketId();
         this.coachType = coachType;
         this.seatNumber = seatNumber;
         this.coachNumber = coachNumber; // Set coachNumber
         this.passenger = passenger;
+        this.route = route;
     }
 
     private String generateTicketId() {
@@ -78,7 +80,7 @@ public class Ticket implements Serializable {
         sb.append("Passenger Email: ").append(passenger.getEmailId()).append("\n");
         sb.append("##### Pricing Information ##### ").append("\n");
 
-        sb.append("Route Fare: ").append("").append("\n");
+        sb.append("Route Fare: ").append(route.getPrice()).append("\n");
         sb.append("Coach Fare: ").append("").append("\n");
         sb.append("Discount: ").append("").append("\n");
         return sb.toString();
