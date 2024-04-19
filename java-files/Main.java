@@ -292,7 +292,7 @@ public class Main {
         scanner.nextLine(); // Consume newline
 
         System.out.print("Would you like to auto-fill details?(Y/N): ");
-        String aChoice = scanner.next().toLowerCase();
+        String aChoice = scanner.nextLine().toLowerCase();
 
         String name = "foo", phoneNumber = "foo", email = "foo@foo.com";
         int age = 0;
@@ -346,12 +346,10 @@ public class Main {
 
         // Ask for train details
 
-        System.out.print(
-                "\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
+        System.out.print("\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
         String routeChoice = scanner.nextLine();
         while (!routeMap.containsKey(routeChoice)) {
-            System.out
-                    .print("Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
+            System.out.print("Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
             String routeChoicex = scanner.nextLine();
             routeChoice = routeChoicex;
         }
@@ -423,7 +421,13 @@ public class Main {
                 }
                 break;
             case 4:
-                System.out.println("You have selected a sleeping coach");
+            	System.out.print("Enter coach number (0, 1, or 2): ");
+                coachNumber = scanner.nextInt();
+                while (coachNumber != 0 && coachNumber != 1 && coachNumber != 2) {
+                    System.out.print("Invalid coach number. Please enter 0, 1, or 2: ");
+                    coachNumber = scanner.nextInt();
+                }
+                break;
             default:
                 System.out.println("Invalid coach type.");
                 return; // Exit the method if coach type is invalid
