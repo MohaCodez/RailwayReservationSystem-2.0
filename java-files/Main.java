@@ -30,7 +30,7 @@ public class Main {
         boolean isTatkaalPossible = false;
 
         int tatkalStartHrs = 9;
-        int tatkalEndHrs = 10;
+        int tatkalEndHrs = tatkalStartHrs + 1;
 
         LocalTime startTime = LocalTime.of(tatkalStartHrs, 0); // Example: 9:00 AM
         LocalTime endTime = LocalTime.of(tatkalEndHrs, 0); // Example: 5:00 PM
