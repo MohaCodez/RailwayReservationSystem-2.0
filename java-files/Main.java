@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.Console;
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Period;
@@ -14,7 +13,7 @@ import java.time.format.DateTimeParseException;
 
 public class Main {
     // clearConsole();
-
+    public static boolean isTatkaalPossible = false;
     private static HashMap<String, Train> trainMap = new HashMap<>();
     private static HashMap<String, Route> routeMap = new HashMap<>();
     private static HashMap<String, User> registeredUsers = new HashMap<String, User>();
@@ -29,9 +28,8 @@ public class Main {
         Admin rrsAdmin = new Admin();
         Scanner scanner = new Scanner(System.in);
         int choice;
-        boolean isTatkaalPossible = false;
 
-        int tatkalStartHrs = 9;
+        int tatkalStartHrs = 15;
         int tatkalEndHrs = tatkalStartHrs + 1;
 
         LocalTime startTime = LocalTime.of(tatkalStartHrs, 0); // Example: 9:00 AM
@@ -165,16 +163,6 @@ public class Main {
 
     }
 
-    // private static String censorPassword(String password) {
-    // StringBuilder censoredPassword = new StringBuilder();
-
-    // for (int i = 0; i < password.length(); i++) {
-    // censoredPassword.append("*");
-    // }
-
-    // return censoredPassword.toString();
-    // }
-
     private static String readPassword() {
         Console console = System.console();
         if (console == null) {
@@ -303,6 +291,12 @@ public class Main {
 
     private static void bookTicket(TicketManager ticketManager, Scanner scanner) {
         // Ask for person category
+
+        if (isTatkaalPossible) {
+            System.out.print(
+                    "\nWould you like to do a:\n[1] Normal Booking [No Surcharge]\n[2] Tatkal Booking [Rs. 500/- extra]\nEnter your choice: ");
+            int bChoice = scanner.nextInt();
+        }
         System.out.println("\nChoose passenger category: ");
         System.out.println("[1] Student (30% OFF)");
         System.out.println("[2] Senior Citizen (40% OFF)");
@@ -498,7 +492,7 @@ public class Main {
             // Extract information from the ticket
             String trainId = ticket.getTrainID();
             // Extract coach and seat information from the ticket
-            int coachType = ticket.getCoachType();
+            int coachType = ticket.getCoachIntType();
             int coachNumber = ticket.getCoachNumber();
             int seatNumber = ticket.getSeatNumber();
             // Retrieve the corresponding train from the trainMap

@@ -38,8 +38,19 @@ public class Ticket implements Serializable {
         return trainID;
     }
 
-    public int getCoachType() {
-        return coachType;
+    public String getCoachType() {
+        switch (this.coachType) {
+            case 1:
+                return "AC - 1st Class Coach";
+            case 2:
+                return "AC - 2nd Class Coach";
+            case 3:
+                return "AC - 3rd Class Coach";
+            case 4:
+                return "Sleeper Coach";
+            default:
+                return "Invalid Coach";
+        }
     }
 
     public int getSeatNumber() {
@@ -94,6 +105,12 @@ public class Ticket implements Serializable {
         sb.append("-------------------------------").append("\n");
 
         return sb.toString();
+    }
+
+    public int getCoachIntType() {
+
+        return this.coachType;
+        // TODO Auto-generated method stub
     }
 
 }

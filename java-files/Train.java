@@ -70,7 +70,7 @@ public class Train implements Serializable {
     public boolean cancelTicketById(String ticketId) {
         if (bookedTickets.containsKey(ticketId)) {
             Ticket ticket = bookedTickets.get(ticketId);
-            int coachType = ticket.getCoachType();
+            int coachType = ticket.getCoachIntType();
             int seatNumber = ticket.getSeatNumber();
 
             switch (coachType) {

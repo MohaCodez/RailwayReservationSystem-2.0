@@ -40,7 +40,7 @@ abstract class BaseCoach implements Coach {
             this.bookedSeats--;
             return true;
         } else {
-            System.out.println("Seat " + seatNumber + " is not booked");
+            System.out.println("Seat " + seatNumber + " has been un-booked successfully!");
             return false;
         }
     }
@@ -55,7 +55,7 @@ abstract class BaseCoach implements Coach {
         }
         System.out.println();
     }
-    
+
     public boolean isSeatBooked(int seatNumber) {
         if (seatNumber < 0 || seatNumber >= CAPACITY) {
             throw new IllegalArgumentException("Invalid seat number");
@@ -63,4 +63,3 @@ abstract class BaseCoach implements Coach {
         return this.seats[seatNumber].isBooked();
     }
 }
-
