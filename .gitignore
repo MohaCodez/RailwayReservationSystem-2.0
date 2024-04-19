@@ -1,3 +1,2 @@
-
-*.class
-java-files/Admin.class
+java-files/*.class
+java-files/*.ser
