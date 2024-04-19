@@ -407,7 +407,6 @@ public class Main {
 
         BaseCoach coach = train.getCoach(coachType, coachNumber);
         coach.displayAvailableSeats();
-
         // IMPLEMENT MULTIPLE SEAT BOOKING ALSO
 
         System.out.print("Enter seat number: ");

@@ -11,8 +11,10 @@ public class Ticket implements Serializable {
     private int coachNumber; // Added field
     private Passenger passenger;
     private Route route;
+    private double coachFare;
 
-    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber, Passenger passenger, Route route) {
+    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber, Passenger passenger, Route route,
+            double coachFare) {
         this.trainID = trainID;
         this.ticketId = generateTicketId();
         this.coachType = coachType;
@@ -20,6 +22,7 @@ public class Ticket implements Serializable {
         this.coachNumber = coachNumber; // Set coachNumber
         this.passenger = passenger;
         this.route = route;
+        this.coachFare = coachFare;
     }
 
     private String generateTicketId() {
@@ -78,11 +81,18 @@ public class Ticket implements Serializable {
         sb.append("Passenger Age: ").append(passenger.getAge()).append("\n");
         sb.append("Passenger Phone Number: ").append(passenger.getPhoneNumber()).append("\n");
         sb.append("Passenger Email: ").append(passenger.getEmailId()).append("\n");
-        sb.append("##### Pricing Information ##### ").append("\n");
+        sb.append("##### Pricing Information #####").append("\n");
 
-        sb.append("Route Fare: ").append(route.getPrice()).append("\n");
-        sb.append("Coach Fare: ").append("").append("\n");
-        sb.append("Discount: ").append("").append("\n");
+        sb.append("          Route Fare: ").append(route.getPrice()).append("\n");
+        sb.append("          Coach Fare: ").append(coachFare).append("\n");
+        double totalBaseFare = route.getPrice() + coachFare;
+        sb.append("     Total Base Fare: ").append(totalBaseFare).append("\n");
+        double discount = passenger.calculateDiscount(totalBaseFare);
+        sb.append("            Discount: ").append(discount).append("\n");
+        sb.append("-------------------------------").append("\n");
+        sb.append("Total Amount Payable: ").append(totalBaseFare - discount).append("\n");
+        sb.append("-------------------------------").append("\n");
+
         return sb.toString();
     }
 

@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Train implements Serializable {
+    private static final long serialVersionUID = 4346488500026720611L;
+
     private String trainId;
     private Route route;
     private AC1Coach[] ac1Coach;
@@ -59,7 +61,8 @@ public class Train implements Serializable {
     }
 
     public Ticket bookTicket(Passenger passenger, int coachType, int seatNumber, int coachNumber) {
-        Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route);
+        Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route,
+                this.getCoachFare(coachType));
         bookedTickets.put(ticket.getTicketId(), ticket);
         return ticket;
     }
@@ -133,6 +136,22 @@ public class Train implements Serializable {
             default:
                 return null;
         }
+    }
+
+    public double getCoachFare(int coachType) {
+        switch (coachType) {
+            case 1:
+                return AC1Coach.coachPrice();
+            case 2:
+                return AC2Coach.coachPrice();
+            case 3:
+                return AC3Coach.coachPrice();
+            case 4:
+                return SleeperCoach.coachPrice();
+            default:
+                return 0;
+        }
+
     }
 
     public void setCoach(BaseCoach coach, int coachNumber) {
