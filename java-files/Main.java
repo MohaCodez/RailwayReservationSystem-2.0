@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Main {
+    // clearConsole();
+
     private static HashMap<String, Train> trainMap = new HashMap<>();
     private static HashMap<String, Route> routeMap = new HashMap<>();
     private static HashMap<String, User> registeredUsers = new HashMap<String, User>();
@@ -19,6 +21,7 @@ public class Main {
     static User loggedInUser = new User();
 
     public static void main(String[] args) {
+        clearConsole();
 
         TicketManager ticketManager = new TicketManager();
         Admin rrsAdmin = new Admin();
@@ -34,12 +37,14 @@ public class Main {
         LocalDate currentDate = LocalDate.now();
 
         // Check if the current time is within the specified range
+        System.out.println("###############################################################\n");
         if (currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
             isTatkaalPossible = true;
-            System.out.println("Tatkaal Option is available!");
+            System.out.println("                Tatkal Option is available!                ");
         } else {
-            System.out.println("Tatkaal Option is not available!");
+            System.out.println("Tatkal Option is not available! Come back between 9AM and 10AM.");
         }
+        System.out.println("\n###############################################################\n");
 
         Route goaToMumbaiRoute = new Route(1, "Goa", "Mumbai", LocalTime.of(10, 0), LocalTime.of(14, 0),
                 currentDate.plusDays(1), 1500.0);
@@ -154,6 +159,19 @@ public class Main {
 
     }
 
+    private static void clearConsole() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (Exception e) {
+            // Handle any exceptions
+            e.printStackTrace();
+        }
+    }
+
     private static void login(Admin rrsAdmin, Scanner scanner) {
 
         System.out.println("\nWelcome to the login page of RRS");
@@ -162,9 +180,9 @@ public class Main {
         String enteredPassword;
 
         registeredUsers = UserHashMapIO.readHashMapFromFile(userDataFilePath);
-        System.out.println(registeredUsers);
+        // System.out.println(registeredUsers);
         Set<String> keys = registeredUsers.keySet();
-        System.out.println(keys);
+        // System.out.println(keys);
         boolean flag = false;
         for (String key : keys) {
             if (key.equals(enteredPhoneNumber)) {

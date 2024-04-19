@@ -9,11 +9,11 @@ public class TicketManager implements Serializable {
     File ticketFile = new File(ticketFilePath);
 
     public TicketManager() {
-        System.out.println("Constructor invoked!");
+        // System.out.println("Constructor invoked!");
         if (ticketFile.length() == 0) {
             this.bookedTickets = new HashMap<>();
         } else {
-            System.out.println("Hashmap Read in Constructor!");
+            // System.out.println("Hashmap Read in Constructor!");
             this.bookedTickets = TicketHashMapIO.readHashMapFromFile(ticketFilePath);
         }
 

@@ -81,7 +81,7 @@ public class Ticket implements Serializable {
         sb.append("Passenger Age: ").append(passenger.getAge()).append("\n");
         sb.append("Passenger Phone Number: ").append(passenger.getPhoneNumber()).append("\n");
         sb.append("Passenger Email: ").append(passenger.getEmailId()).append("\n");
-        sb.append("##### Pricing Information #####").append("\n");
+        sb.append("\n##### Pricing Information #####").append("\n");
 
         sb.append("          Route Fare: ").append(route.getPrice()).append("\n");
         sb.append("          Coach Fare: ").append(coachFare).append("\n");
