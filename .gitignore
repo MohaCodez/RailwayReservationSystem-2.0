@@ -2,3 +2,9 @@ java-files/*.class
 java-files/*.ser
 *.class
 *.ser
+
+java-files/Admin.class
+java-files/HashMapIO.class
+java-files/TicketHashMapIO.class
+java-files/User.class
+java-files/UserHashMapIO.class
