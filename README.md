@@ -1,7 +1,7 @@
 # Railway Reservation System
 ### A project by [Group-12](#team)
 
-Welcome to the Railway Reservation System project! This application is designed to manage railway bookings, allowing users to search for trains, book tickets, and manage reservations with ease. Developed using Java and Object-Oriented Programming (OOP) principles, our system is split into two main components: the frontend and the backend, each residing in its own dedicated folder.
+Welcome to the Railway Reservation System project! This application is designed to manage railway bookings, allowing users to search for trains, book tickets, and manage reservations with ease. Developed using Java and Object-Oriented Programming (OOP) principles, our system is designed to be fast, secure, fool-proof and effective.
 
 ## Table of Contents
 
