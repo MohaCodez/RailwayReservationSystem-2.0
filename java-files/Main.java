@@ -30,7 +30,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
-        int tatkalStartHrs = 21;
+        int tatkalStartHrs = 22;
         int tatkalEndHrs = tatkalStartHrs + 1;
 
         LocalTime startTime = LocalTime.of(tatkalStartHrs, 0); // Example: 9:00 AM
@@ -167,6 +167,7 @@ public class Main {
                         break;
 
                     }
+                    break;
                 case 2:
                     cancelTicket(ticketManager, scanner);
                     break;
@@ -217,7 +218,7 @@ public class Main {
     private static void tatkalBookerEmployeeTasks(TicketRequestManager requestManager, Scanner scanner) {
         // TODO Auto-generated method stub
         TatkalTicketBooker Employee = new TatkalTicketBooker();
-        System.out.print("Enter Employee Login Password: ");
+        System.out.print("If you are an EMPLOYEE, enter ");
         String password = readPassword();
         if (!password.equals(Employee.getPassword())) {
             System.out.print("Incorrect Password");
@@ -230,10 +231,10 @@ public class Main {
 
     }
 
-    private static void checkTatkalStatus(TicketRequestManager requestManager, Scanner scanner) {
+    private static void checkTatkalStatus(TicketRequestManager requestManager, Scanner scanner2) {
         // TODO Auto-generated method stub
         System.out.print("Enter the request ID to check the status: ");
-        String requestId = scanner.nextLine();
+        String requestId = scanner2.next();
 
         if (requestManager.getRequests().containsKey(requestId)) {
             requestManager.getRequests().get(requestId).displayRequestDetails();
@@ -294,18 +295,26 @@ public class Main {
         } else {
             // Ask for person details
             System.out.print("Enter passenger's name: ");
-            name = scanner.nextLine();
-            System.out.print("Enter passenger's age: ");
-            try {
-                age = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Enter a valid age!");
-            }
-            scanner.nextLine(); // Consume newline
+            name = scanner.next();
+
+            boolean isAgeInt = true;
+
+            do {
+                System.out.print("Enter passenger's age: ");
+                try {
+                    age = scanner.nextInt();
+                    isAgeInt = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a valid age!");
+                    isAgeInt = false;
+                    // Clear scanner buffer
+                    scanner.next();
+                }
+            } while (!isAgeInt);
             System.out.print("Enter passenger's phone number: ");
-            phoneNumber = scanner.nextLine();
+            phoneNumber = scanner.next();
             System.out.print("Enter passenger's email: ");
-            email = scanner.nextLine();
+            email = scanner.next();
 
         }
 
@@ -334,12 +343,12 @@ public class Main {
 
         System.out
                 .print("\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
-        String routeChoice = scanner.nextLine();
+        String routeChoice = scanner.next();
 
         while (!routeMap.containsKey(routeChoice)) {
             System.out.print(
                     "Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
-            String routeChoicex = scanner.nextLine();
+            String routeChoicex = scanner.next();
             routeChoice = routeChoicex;
         }
         Route route = routeMap.get(routeChoice);
@@ -375,7 +384,10 @@ public class Main {
 
         // Ask for coach details
         System.out.print(
-                "\nList of Available Coaches: \n[1] for AC1 \n[2] for AC2 \n[3] for AC3\n[4] for Sleeper \nEnter Coach Type: ");
+                "\nList of Available Coaches: \n[1] for AC1 [Rs. " + AC1Coach.coachPrice() + "]\n[2] for AC2 [Rs. "
+                        + AC2Coach.coachPrice() + "]\n[3] for AC3 [Rs. " + AC3Coach.coachPrice()
+                        + "]\n[4] for Sleeper [Rs. "
+                        + SleeperCoach.coachPrice() + "]\nEnter Coach Type: ");
         int coachType = scanner.nextInt();
 
         System.out.print("Enter coach number: ");
@@ -569,17 +581,25 @@ public class Main {
             // Ask for person details
             System.out.print("Enter passenger's name: ");
             name = scanner.next();
-            System.out.print("Enter passenger's age: ");
-            try {
-                age = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Enter a valid age!");
-            }
-            scanner.nextLine(); // Consume newline
+
+            boolean isAgeInt = true;
+
+            do {
+                System.out.print("Enter passenger's age: ");
+                try {
+                    age = scanner.nextInt();
+                    isAgeInt = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter a valid age!");
+                    isAgeInt = false;
+                    // Clear scanner buffer
+                    scanner.next();
+                }
+            } while (!isAgeInt);
             System.out.print("Enter passenger's phone number: ");
-            phoneNumber = scanner.nextLine();
+            phoneNumber = scanner.next();
             System.out.print("Enter passenger's email: ");
-            email = scanner.nextLine();
+            email = scanner.next();
 
         }
 
@@ -608,11 +628,11 @@ public class Main {
 
         System.out
                 .print("\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
-        String routeChoice = scanner.nextLine();
+        String routeChoice = scanner.next();
         while (!routeMap.containsKey(routeChoice)) {
             System.out.print(
                     "Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
-            String routeChoicex = scanner.nextLine();
+            String routeChoicex = scanner.next();
             routeChoice = routeChoicex;
         }
         Route route = routeMap.get(routeChoice);
@@ -723,10 +743,10 @@ public class Main {
 
     }
 
-    private static void cancelTicket(TicketManager ticketManager, Scanner scanner) {
+    private static void cancelTicket(TicketManager ticketManager, Scanner scanner2) {
         // Ask the user for the ticket ID to cancel
         System.out.print("Enter the ticket ID to cancel: ");
-        String ticketId = scanner.nextLine();
+        String ticketId = scanner2.next();
 
         // Check if the ticket ID exists in the TicketManager's list of booked tickets
         if (ticketManager.getBookedTickets().containsKey(ticketId)) {
