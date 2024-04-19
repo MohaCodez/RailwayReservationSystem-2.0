@@ -54,7 +54,7 @@ After installation, you can run the application by executing the main class in t
 
 ## Documentation
 
-Comprehensive documentation for the Railway Reservation System is available in the `docs` folder.
+Comprehensive documentation for the Railway Reservation System is available in the `docs` folder or you can also click here: [View Documentation](https://drive.google.com/drive/folders/1FvHZN7tSH-DXW640PS5jhjy0iq23mvId?usp=drive_link)<br>
 
 ## Team
 
