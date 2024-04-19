@@ -62,4 +62,8 @@ public class Admin implements Serializable {
 
     }
 
+    public void loginExistingUser() {
+        // TODO Auto-generated method stub
+    }
+
 }
