@@ -1,2 +1,4 @@
 java-files/*.class
 java-files/*.ser
+*.class
+*.ser
