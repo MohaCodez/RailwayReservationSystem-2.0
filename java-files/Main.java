@@ -30,7 +30,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
-        int tatkalStartHrs = 22;
+        int tatkalStartHrs = 11;
         int tatkalEndHrs = tatkalStartHrs + 1;
 
         LocalTime startTime = LocalTime.of(tatkalStartHrs, 0); // Example: 9:00 AM
