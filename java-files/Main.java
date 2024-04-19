@@ -3,7 +3,9 @@ import java.util.HashMap;
 import java.util.*;
 import java.util.List;
 import java.util.Scanner;
+import java.io.Console;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Period;
@@ -98,7 +100,7 @@ public class Main {
         int input = -1;
         do {
             try {
-                System.out.println("Press:\n[1] Login\n[2] Sign-up\nEnter your choice: ");
+                System.out.print("Press:\n[1] Login\n[2] Sign-up\nEnter your choice: ");
                 input = scanner.nextInt();
                 if (input != 1 && input != 2) {
                     System.out.println("Please enter a valid value.");
@@ -131,7 +133,7 @@ public class Main {
         }
 
         do {
-            System.out.println("\nWelcome to Railway Reservation System Main Menu! \nPress:");
+            System.out.println("\nWelcome to Railway Reservation System Main Menu! \nPress: ");
             System.out.println("[1] Book a ticket");
             System.out.println("[2] Cancel a ticket");
             System.out.println("[3] Check ticket status");
@@ -163,7 +165,27 @@ public class Main {
 
     }
 
-    private static void clearConsole() {
+    // private static String censorPassword(String password) {
+    // StringBuilder censoredPassword = new StringBuilder();
+
+    // for (int i = 0; i < password.length(); i++) {
+    // censoredPassword.append("*");
+    // }
+
+    // return censoredPassword.toString();
+    // }
+
+    private static String readPassword() {
+        Console console = System.console();
+        if (console == null) {
+            throw new RuntimeException("Console not available");
+        }
+
+        char[] passwordChars = console.readPassword("your password: ");
+        return new String(passwordChars);
+    }
+
+    public static void clearConsole() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -178,8 +200,8 @@ public class Main {
 
     private static void login(Admin rrsAdmin, Scanner scanner) {
 
-        System.out.println("\nWelcome to the login page of RRS");
-        System.out.println("Enter your phone number: ");
+        System.out.println("\nWelcome to the login page of Railway Reservation System!");
+        System.out.print("Enter your phone number: ");
         String enteredPhoneNumber = scanner.next(); // Read user input
         String enteredPassword;
 
@@ -192,12 +214,13 @@ public class Main {
             if (key.equals(enteredPhoneNumber)) {
                 flag = true;
                 do {
-                    System.out.println("Enter your password: ");
-                    enteredPassword = scanner.next();
+                    System.out.print("Enter ");
+                    enteredPassword = readPassword(); // Read user input
 
                     if (registeredUsers.get(key).getPassword().equals(enteredPassword)) {
                         loggedInUser = registeredUsers.get(key);
                         loggedInUser.setUserLoggedIn(true);
+                        clearConsole();
                         System.out.println("User logged in successfully!");
                     } else {
                         System.out.println("Incorrect password! Please try again.");
@@ -219,7 +242,7 @@ public class Main {
     }
 
     private static void signUp(Admin rrsAdmin, Scanner scanner) {
-        System.out.println("Enter your first name: ");
+        System.out.print("Enter your first name: ");
         String enteredName = scanner.next(); // Read user input
 
         boolean flag2 = false;
@@ -228,7 +251,7 @@ public class Main {
         do {
 
             try {
-                System.out.println("Enter your date of birth (DD-MM-YYYY):");
+                System.out.print("Enter your date of birth (DD-MM-YYYY): ");
                 dobString = scanner.next();
                 flag2 = false;
             } catch (DateTimeParseException e) {
@@ -250,23 +273,22 @@ public class Main {
         Period age = Period.between(dob, currentDate);
         int currentAge = age.getYears();
 
-        System.out.println("Enter your email: ");
+        System.out.print("Enter your email: ");
         String enteredEmail = scanner.next(); // Read user input
 
-        System.out.println("Enter your phone number: ");
+        System.out.print("Enter your phone number: ");
         String enteredPhoneNumber = scanner.next(); // Read user input
 
         String enteredPassword = "";
         String enteredConfirmPassword = "";
 
         do {
-            System.out.println("Enter your password: ");
-            enteredPassword = scanner.next(); // Read user input
-
-            System.out.println("Confirm your password: ");
-            enteredConfirmPassword = scanner.next();
+            System.out.print("Enter ");
+            enteredPassword = readPassword(); // Read user input
+            System.out.print("Confirm ");
+            enteredConfirmPassword = readPassword();
             if (enteredConfirmPassword.equals(enteredPassword) == false) {
-                System.out.println("The passwords do not match! Enter the passwords again:");
+                System.out.println("The passwords do not match! Enter the passwords again: ");
             }
 
         } while (!enteredConfirmPassword.equals(enteredPassword));
@@ -281,7 +303,7 @@ public class Main {
 
     private static void bookTicket(TicketManager ticketManager, Scanner scanner) {
         // Ask for person category
-        System.out.println("\nChoose passenger category:");
+        System.out.println("\nChoose passenger category: ");
         System.out.println("[1] Student (30% OFF)");
         System.out.println("[2] Senior Citizen (40% OFF)");
         System.out.println("[3] Military (50% OFF)");
@@ -346,10 +368,12 @@ public class Main {
 
         // Ask for train details
 
-        System.out.print("\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
+        System.out
+                .print("\nEnter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
         String routeChoice = scanner.nextLine();
         while (!routeMap.containsKey(routeChoice)) {
-            System.out.print("Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
+            System.out.print(
+                    "Enter route  \n[1] Goa to Mumbai \n[2] Mumbai to Goa \n[3] Goa to Bangalore\nEnter Choice: ");
             String routeChoicex = scanner.nextLine();
             routeChoice = routeChoicex;
         }
@@ -366,7 +390,7 @@ public class Main {
             // System.out.println(train.getRoute().getId() + " debug! " + route.getId());
             if (train.getRoute().getId() == route.getId()) {
                 // System.out.println("Hi");
-                System.out.println("\nTrain ID:" + train.getTrainId() + "\nRoute Description \n"
+                System.out.println("\nTrain ID: " + train.getTrainId() + "\nRoute Description \n"
                         + train.getRoute().getDescription());
             }
 
@@ -376,7 +400,7 @@ public class Main {
         String trainId = scanner.next();
         while ((!trainMap.containsKey(trainId))) {
 
-            System.out.println("Invalid train ID. Please enter a valid train ID.:");
+            System.out.println("Invalid train ID. Please enter a valid train ID.: ");
             String trainId2 = scanner.nextLine();
             trainId = trainId2;
 
@@ -421,7 +445,7 @@ public class Main {
                 }
                 break;
             case 4:
-            	System.out.print("Enter coach number (0, 1, or 2): ");
+                System.out.print("Enter coach number (0, 1, or 2): ");
                 coachNumber = scanner.nextInt();
                 while (coachNumber != 0 && coachNumber != 1 && coachNumber != 2) {
                     System.out.print("Invalid coach number. Please enter 0, 1, or 2: ");
@@ -447,7 +471,7 @@ public class Main {
         // Book the ticket using the TicketManager
         Ticket ticket = ticketManager.bookTicket(passenger, train, coachType, seatNumber, coachNumber);
         if (ticket != null) {
-            System.out.println("\nTicket booked successfully:");
+            System.out.println("\nTicket booked successfully: ");
             // Update the state of the coach after booking a ticket
             train.updateCoachState(coachType, coachNumber, seatNumber, true);
 
@@ -515,7 +539,7 @@ public class Main {
             Ticket ticket = ticketManager.getBookedTickets().get(ticketId);
 
             // Display ticket information
-            System.out.println("\nTicket Information:");
+            System.out.println("\nTicket Information: ");
             System.out.println("Ticket ID: " + ticket.getTicketId());
             System.out.println("Passenger Name: " + ticket.getPassenger().getName());
             System.out.println("Passenger Age: " + ticket.getPassenger().getAge());

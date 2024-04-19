@@ -25,7 +25,7 @@ public class Admin implements Serializable {
         File file = new File(Main.userDataFilePath);
         if (file.length() != 0) {
             registeredUsers = UserHashMapIO.readHashMapFromFile(Main.userDataFilePath);
-            System.out.println(registeredUsers);
+            // System.out.println(registeredUsers);
             // System.out.println(registeredUsers);
 
             int flag = 0;
@@ -43,7 +43,9 @@ public class Admin implements Serializable {
                 User newUser = new User(enteredName, currentAge, phoneNum, enteredEmail, enteredPassword, true);
                 registeredUsers.put(newUser.getPhoneNumber(), newUser);
                 UserHashMapIO.writeHashMapToFile(Main.userDataFilePath, registeredUsers);
-                System.out.println("Account successfully registered!");
+                Main.clearConsole();
+                System.out.println(
+                        "New account with phone number: " + newUser.getPhoneNumber() + " successfully created!");
 
             } else {
                 System.out.println("Exiting Program...");
@@ -53,18 +55,9 @@ public class Admin implements Serializable {
             User newUser = new User(enteredName, currentAge, phoneNum, enteredEmail, enteredPassword, true);
             registeredUsers.put(newUser.getPhoneNumber(), newUser);
             UserHashMapIO.writeHashMapToFile(Main.userDataFilePath, registeredUsers);
-            System.out.println("Sign-Up successful!");
-            // System.out.println(registeredUsers);
+            Main.clearConsole();
+            System.out.println("New account with phone number: " + newUser.getPhoneNumber() + " successfully created!");
         }
-        // } else {
-        // }
-
-        // TODO Auto-generated method stub
 
     }
-
-    public void loginExistingUser() {
-        // TODO Auto-generated method stub
-    }
-
 }

@@ -43,6 +43,7 @@ Before you begin, ensure you have the following tools installed:
 And then continue to [Installation](#installation)
 
 2. In case of any other errors, you can reset the software by running the commands:<br>
+!Keep in mind, all user data will be lost!<br>
 ```cd java-files```<br>
 ```rm *.ser```<br>
 And then continue to [Installation](#installation)
