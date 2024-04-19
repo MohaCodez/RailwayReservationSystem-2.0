@@ -8,6 +8,7 @@ Welcome to the Railway Reservation System project! This application is designed 
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Troubleshooting](#troubleshooting)
 - [Usage](#usage)
 - [Documentation](#documentation)
 - [Team](#team)
@@ -31,8 +32,20 @@ Before you begin, ensure you have the following tools installed:
 
 2. To access and run the .java files, head over to the `java-files` folder and run the main class:<br>
 ```cd java-files```<br>
-```javac Main.java```<br>
+```javac Main.java``` //Does this line throw an error? [Troubleshoot](#troubleshooting)<br>
 ```java Main```
+
+### Troubleshooting
+
+1. In case of version mismatch errors while compiling, you must first delete all `.class` files. So run the commands:<br>
+```cd java-files```<br>
+```rm *.class```<br>
+And then continue to [Installation](#installation)
+
+2. In case of any other errors, you can reset the software by running the commands:<br>
+```cd java-files```<br>
+```rm *.ser```<br>
+And then continue to [Installation](#installation)
 
 ## Usage
 
