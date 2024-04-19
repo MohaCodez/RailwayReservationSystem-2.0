@@ -1,5 +1,7 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Train implements Serializable {
@@ -60,12 +62,26 @@ public class Train implements Serializable {
         }
     }
 
-    public Ticket bookTicket(Passenger passenger, int coachType, int seatNumber, int coachNumber) {
-        Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route,
-                this.getCoachFare(coachType));
+    public Ticket bookTicket(Passenger passenger, int coachType, int coachNumber, int seatNumber) {
+        Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route,this.getCoachFare(coachType));
         bookedTickets.put(ticket.getTicketId(), ticket);
         return ticket;
     }
+    public List<Ticket> bookTicket(Passenger passenger, int coachType, int coachNumber, int ...seatNumbers) {
+        List<Ticket> tickets = new ArrayList<>();
+        for (int seatNumber : seatNumbers) {
+            Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route, this.getCoachFare(coachType));
+            bookedTickets.put(ticket.getTicketId(), ticket);
+            tickets.add(ticket); // Add the booked ticket to the list
+        }
+
+        for (Ticket ticket : tickets) {
+            System.out.println(ticket.getDetails());
+        }
+
+        return tickets; // Return the list of booked tickets
+    }
+    
 
     public boolean cancelTicketById(String ticketId) {
         if (bookedTickets.containsKey(ticketId)) {
