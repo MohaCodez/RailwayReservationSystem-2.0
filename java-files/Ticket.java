@@ -25,6 +25,16 @@ public class Ticket implements Serializable {
         this.coachFare = coachFare;
     }
 
+    public Ticket(String trainID, int coachType, int seatNumber, int coachNumber, Passenger passenger) {
+        this.trainID = trainID;
+        this.ticketId = generateTicketId();
+        this.coachType = coachType;
+        this.seatNumber = seatNumber;
+        this.coachNumber = coachNumber; // Set coachNumber
+        this.passenger = passenger;
+
+    }
+
     private String generateTicketId() {
         // Generate a unique ticket ID using UUID
         return UUID.randomUUID().toString();

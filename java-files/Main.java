@@ -29,7 +29,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
-        int tatkalStartHrs = 15;
+        int tatkalStartHrs = 17;
         int tatkalEndHrs = tatkalStartHrs + 1;
 
         LocalTime startTime = LocalTime.of(tatkalStartHrs, 0); // Example: 9:00 AM
@@ -148,7 +148,10 @@ public class Main {
                     cancelTicket(ticketManager, scanner);
                     break;
                 case 3:
-                    checkTicketStatus(ticketManager, scanner);
+                    System.out.print("Enter the ticket ID to check the status: ");
+                    String ticketIDs = scanner.nextLine();
+                    String[] arrayOfTickedIDs = ticketIDs.split("\\s+");
+                    checkTicketStatus(ticketManager, scanner, arrayOfTickedIDs);
                     break;
                 case 4:
                     System.out.println("Exiting...");
@@ -296,6 +299,7 @@ public class Main {
             System.out.print(
                     "\nWould you like to do a:\n[1] Normal Booking [No Surcharge]\n[2] Tatkal Booking [Rs. 500/- extra]\nEnter your choice: ");
             int bChoice = scanner.nextInt();
+
         }
         System.out.println("\nChoose passenger category: ");
         System.out.println("[1] Student (30% OFF)");
@@ -522,31 +526,32 @@ public class Main {
 
     }
 
-    private static void checkTicketStatus(TicketManager ticketManager, Scanner scanner) {
+    private static void checkTicketStatus(TicketManager ticketManager, Scanner scanner, String... ticketIDs) {
         // Ask the user for the ticket ID to check the status for
-        System.out.print("Enter the ticket ID to check the status: ");
-        String ticketId = scanner.nextLine();
 
         // Check if the ticket ID exists in the TicketManager's list of booked tickets
-        if (ticketManager.getBookedTickets().containsKey(ticketId)) {
-            // Retrieve the corresponding ticket from the TicketManager
-            Ticket ticket = ticketManager.getBookedTickets().get(ticketId);
+        for (String ticketId : ticketIDs) {
 
-            // Display ticket information
-            System.out.println("\nTicket Information: ");
-            System.out.println("Ticket ID: " + ticket.getTicketId());
-            System.out.println("Passenger Name: " + ticket.getPassenger().getName());
-            System.out.println("Passenger Age: " + ticket.getPassenger().getAge());
-            System.out.println("Passenger Phone Number: " + ticket.getPassenger().getPhoneNumber());
-            System.out.println("Passenger Email: " + ticket.getPassenger().getEmailId());
-            System.out.println("Train ID: " + ticket.getTrainID());
-            System.out.println("Coach Type: " + ticket.getCoachType());
-            System.out.println("Seat Number: " + ticket.getSeatNumber());
-            System.out.println("Coach Number: " + ticket.getCoachNumber());
-            // You can add more ticket details if needed
+            if (ticketManager.getBookedTickets().containsKey(ticketId)) {
+                // Retrieve the corresponding ticket from the TicketManager
+                Ticket ticket = ticketManager.getBookedTickets().get(ticketId);
 
-        } else {
-            System.out.println("Ticket with ID " + ticketId + " does not exist.");
+                // Display ticket information
+                System.out.println("\nTicket Information: ");
+                System.out.println("Ticket ID: " + ticket.getTicketId());
+                System.out.println("Passenger Name: " + ticket.getPassenger().getName());
+                System.out.println("Passenger Age: " + ticket.getPassenger().getAge());
+                System.out.println("Passenger Phone Number: " + ticket.getPassenger().getPhoneNumber());
+                System.out.println("Passenger Email: " + ticket.getPassenger().getEmailId());
+                System.out.println("Train ID: " + ticket.getTrainID());
+                System.out.println("Coach Type: " + ticket.getCoachType());
+                System.out.println("Seat Number: " + ticket.getSeatNumber());
+                System.out.println("Coach Number: " + ticket.getCoachNumber());
+                // You can add more ticket details if needed
+
+            } else {
+                System.out.println("Ticket with ID " + ticketId + " does not exist.");
+            }
         }
     }
 }
