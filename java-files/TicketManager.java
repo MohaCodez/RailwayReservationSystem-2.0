@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TicketManager implements Serializable {
@@ -20,7 +22,7 @@ public class TicketManager implements Serializable {
     }
 
     // Method to book a ticket for a passenger on a train
-    public Ticket bookTicket(Passenger passenger, Train train, int coachType, int seatNumber, int coachNumber) {
+    public Ticket bookTicket(Passenger passenger, Train train, int coachType, int coachNumber, int seatNumber) {
         TicketHashMapIO.readHashMapFromFile(ticketFilePath);
         Ticket ticket = train.bookTicket(passenger, coachType, seatNumber, coachNumber);
         if (ticket != null) {
@@ -28,6 +30,24 @@ public class TicketManager implements Serializable {
             TicketHashMapIO.writeHashMapToFile(ticketFilePath, bookedTickets);
         }
         return ticket;
+    }
+
+    public List<Ticket> bookTicket(Passenger passenger, Train train, int coachType, int coachNumber,
+            String... seatNumbers) {
+        TicketHashMapIO.readHashMapFromFile(ticketFilePath);
+        List<Ticket> tickets = new ArrayList<Ticket>();
+
+        for (String s : seatNumbers) {
+            int seatNumber = Integer.parseInt(s);
+            Ticket ticket = train.bookTicket(passenger, coachType, seatNumber, coachNumber);
+            if (ticket != null) {
+                bookedTickets.put(ticket.getTicketId(), ticket);
+                TicketHashMapIO.writeHashMapToFile(ticketFilePath, bookedTickets);
+                tickets.add(ticket);
+            }
+        }
+        return tickets;
+
     }
 
     // Method to cancel a ticket by ID

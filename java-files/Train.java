@@ -62,15 +62,21 @@ public class Train implements Serializable {
         }
     }
 
-    public Ticket bookTicket(Passenger passenger, int coachType, int coachNumber, int seatNumber) {
-        Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route,this.getCoachFare(coachType));
+    public Ticket bookTicket(Passenger passenger, int coachType, int seatNumber, int coachNumber) {
+        Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route,
+                this.getCoachFare(coachType));
         bookedTickets.put(ticket.getTicketId(), ticket);
         return ticket;
     }
-    public List<Ticket> bookTicket(Passenger passenger, int coachType, int coachNumber, int ...seatNumbers) {
+
+    public List<Ticket> bookTicket(Passenger passenger, int coachType, int coachNumber, int... seatNumbers) {
         List<Ticket> tickets = new ArrayList<>();
+        System.out.println("debug");
         for (int seatNumber : seatNumbers) {
-            Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route, this.getCoachFare(coachType));
+            System.out.println("debug");
+            System.out.println(seatNumber);
+            Ticket ticket = new Ticket(this.trainId, coachType, seatNumber, coachNumber, passenger, this.route,
+                    this.getCoachFare(coachType));
             bookedTickets.put(ticket.getTicketId(), ticket);
             tickets.add(ticket); // Add the booked ticket to the list
         }
@@ -81,7 +87,6 @@ public class Train implements Serializable {
 
         return tickets; // Return the list of booked tickets
     }
-    
 
     public boolean cancelTicketById(String ticketId) {
         if (bookedTickets.containsKey(ticketId)) {

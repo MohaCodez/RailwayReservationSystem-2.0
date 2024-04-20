@@ -138,9 +138,8 @@ public class Main {
             System.out.println("[3] Check ticket status");
             System.out.println("[4] Employee Login");
             System.out.println("[5] Exit");
-            System.out.print("Enter your choice: ");
+            System.out.println("Enter your choice: ");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
@@ -390,7 +389,7 @@ public class Main {
                         + SleeperCoach.coachPrice() + "]\nEnter Coach Type: ");
         int coachType = scanner.nextInt();
 
-        System.out.print("Enter coach number: ");
+        // System.out.print("Enter coach number: ");
         int coachNumber = -1;
 
         switch (coachType) {
@@ -719,26 +718,88 @@ public class Main {
         coach.displayAvailableSeats();
         // IMPLEMENT MULTIPLE SEAT BOOKING ALSO
 
-        System.out.print("Enter seat number: ");
-        int seatNumber = scanner.nextInt();
-        while (coach.isSeatBooked(seatNumber)) {
-            System.out.print("Seat " + seatNumber + " is already booked. Enter a different seat number: ");
-            seatNumber = scanner.nextInt();
-        }
+        boolean allSeatsBooked = false;
 
-        // Book the ticket using the TicketManager
-        Ticket ticket = ticketManager.bookTicket(passenger, train, coachType, coachNumber, seatNumber);
-        if (ticket != null) {
-            System.out.println("\nTicket booked successfully: ");
-            // Update the state of the coach after booking a ticket
-            train.updateCoachState(coachType, coachNumber, seatNumber, true);
+        String[] arrayofSeatNos = null;
 
-            System.out.println(ticket.getDetails());
-            // ADDING BACK TO THE TRAINMAP
-            trainMap.put(trainId, train);
-            HashMapIO.writeHashMapToFile(filePath, trainMap);
+        String seatNumbers = "";
+
+        Scanner scanner3 = new Scanner(System.in);
+        do {
+            System.out.println("Enter seat number(s): ");
+            // scanner3 implementation
+            String seatNumbers2 = scanner3.nextLine();
+            seatNumbers = seatNumbers2;
+
+            arrayofSeatNos = seatNumbers.split("\\s+");
+
+            // scnner1 implementation
+            // String seatNumbers2 = scanner.nextLine();
+            // seatNumbers = seatNumbers2;
+            // arrayofSeatNos = seatNumbers.split("\\s+");
+
+            allSeatsBooked = true; // Assume all seats are booked until proven otherwise
+
+            for (String seatNum : arrayofSeatNos) {
+                if (coach.isSeatBooked(Integer.parseInt(seatNum))) {
+                    System.out.print("Seat " + seatNum + " is already booked. ");
+                    allSeatsBooked = false; // At least one seat is not booked
+                    break; // Exit the loop, no need to check further
+                }
+            }
+
+            if (!allSeatsBooked) {
+                System.out.println("\nEnter different seat number(s) and try again!\n");
+            }
+
+        } while (!allSeatsBooked);
+
+        // scanner3.close();
+
+        // System.out.println(arrayofSeatNos.length);
+
+        if (arrayofSeatNos.length == 1) {
+            while (coach.isSeatBooked(Integer.parseInt(arrayofSeatNos[0]))) {
+                System.out.print("Seat " + arrayofSeatNos[0] + " is already booked. Enter different seat number(s): ");
+                arrayofSeatNos[0] = scanner.next();
+                // arrayofSeatNos = seatNumbers.split("\\s+");
+            }
+
+            Ticket ticket = ticketManager.bookTicket(passenger, train, coachType, coachNumber,
+                    Integer.parseInt(seatNumbers));
+            if (ticket != null) {
+                System.out.println("\nTicket booked successfully!\n ");
+                // Update the state of the coach after booking a ticket
+                train.updateCoachState(coachType, coachNumber, ticket.getSeatNumber(), true);
+
+                System.out.println(ticket.getDetails());
+                // ADDING BACK TO THE TRAINMAP
+                trainMap.put(trainId, train);
+                HashMapIO.writeHashMapToFile(filePath, trainMap);
+            } else {
+                System.out.println("Failed to book the ticket. Please try again.");
+            }
+
         } else {
-            System.out.println("Failed to book the ticket. Please try again.");
+
+            List<Ticket> listOfTickets = ticketManager.bookTicket(passenger, train, coachType, coachNumber,
+                    arrayofSeatNos);
+
+            for (Ticket t : listOfTickets) {
+                if (t != null) {
+                    System.out.println("\nTicket booked successfully: ");
+                    // Update the state of the coach after booking a ticket
+                    train.updateCoachState(coachType, coachNumber, t.getSeatNumber(), true);
+
+                    System.out.println(t.getDetails());
+                    // ADDING BACK TO THE TRAINMAP
+                    trainMap.put(trainId, train);
+                    HashMapIO.writeHashMapToFile(filePath, trainMap);
+                } else {
+                    System.out.println("Failed to book the ticket. Please try again.");
+                }
+
+            }
         }
 
     }
