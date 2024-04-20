@@ -43,7 +43,7 @@ public class TicketRequestManager implements Serializable{
     
     public Ticket bookTicket(TicketRequest request) {
         TicketRequestHashMapIO.readHashMapFromFile(ticketFilePath);
-        Ticket ticket = request.getTrain().bookTicket(request.getPassenger(), request.getCoachType(), request.getSeatNumber(), request.getCoachNumber());
+        Ticket ticket = request.getTrain().bookTicket(request.getPassenger(), request.getCoachType(), request.getCoachNumber(), request.getSeatNumber());
         if (ticket != null) {
             bookedTickets.put(ticket.getTicketId(), ticket);
             TicketHashMapIO.writeHashMapToFile(ticketFilePath, bookedTickets);
