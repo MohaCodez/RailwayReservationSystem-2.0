@@ -30,7 +30,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
-        int tatkalStartHrs = 14;
+        int tatkalStartHrs = 11;
         int tatkalEndHrs = tatkalStartHrs + 1;
 
         LocalTime startTime = LocalTime.of(tatkalStartHrs, 0); // Example: 9:00 AM
@@ -146,7 +146,7 @@ public class Main {
                     int bChoice = 1;
                     if (isTatkaalPossible) {
                         System.out.print(
-                                "\nWould you like to do a:\n[1] Normal Booking [No Surcharge]\n[2] Tatkal Booking [Rs. 500/- extra]\nEnter your choice: ");
+                                "\nWould you like to do a:\n[1] Normal Booking\n[2] Tatkal Booking\nEnter your choice: ");
                         bChoice = scanner.nextInt();
                         switch (bChoice) {
                             case 1:
